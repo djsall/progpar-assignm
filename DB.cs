@@ -2,6 +2,7 @@
 
 namespace Beadando {
 //TODO: módszer arra hogy megállapítsuk hogy admin e a köcsög, nyugodtan túrd szét az egészet
+//lehet hogy külön file kéne az adminoknak és a regularoknak, hogy ne kelljen ennyit baszakodni, talán az userland sem lenne olyan komplex úgy
 	class DB {
 		//igaz ha az adatbázisban van ilyen felhasználó
 		public bool containsUser(string username, string password){

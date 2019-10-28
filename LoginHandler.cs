@@ -2,10 +2,12 @@
 namespace Beadando {
 	class LoginHandler {
 		DB db = new DB();
+		//regisztrációs metódus eredményéhez igaz admin flaget ad
 		public void addAdministrator() {
 			string[] result = registration();
 			db.insertNewUser(result[0], result[1], true);
 		}
+		//regisztrációs metódus eredményéhez hamis admin flaget ad
 		public void addUser(){
 			string[] result = registration();
 			db.insertNewUser(result[0], result[1], false);
@@ -22,6 +24,7 @@ namespace Beadando {
 			WriteLine("Sikeres bejelentkezés!");
 			return true;
 		}
+		//regisztráció, visszaadja a felhasználót és a jelszót
 		public string[] registration(){
 			string username, password, passwordVerify;
 			do {
