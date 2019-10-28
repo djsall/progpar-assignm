@@ -1,9 +1,25 @@
 ﻿using static System.Console;
 using System.Text.RegularExpressions;
 namespace Beadando {
-	class Administrator {
+	class Users {
 		DB db = new DB();
 		public void addAdministrator() {
+			string[] result = registration();
+			db.insertNewUser(result[0], result[1], true);
+		}
+		//sikeres bejelentkezés, vagy nem, majd eldönti
+		public bool login(){
+			string username, password;
+			do {
+				WriteLine("Adja meg a felhasználónevét! ");
+				username = ReadLine();
+				WriteLine("Adja meg a jelszavát! ");
+				password = ReadLine();
+			} while (!isAlphaNum(username) && !db.containsUser(username, password));
+			WriteLine("Sikeres bejelentkezés!");
+			return true;
+		}
+		public string[] registration(){
 			string username, password, passwordVerify;
 			do {
 				WriteLine("Adja meg a regisztrálni kívánt felhasználónevet! ");
@@ -17,20 +33,10 @@ namespace Beadando {
 				WriteLine("Erősítse meg a társítani kíánt jelszót! ");
 				passwordVerify = ReadLine();
 			} while (!isAlphaNum(passwordVerify) && password != passwordVerify);
-			db.insertNewUser(username, password);
-		}
-		//azért bool, hogy ha sikeres a bejelentkezés, onnantól adminland-ba dobhassuk egyből, ne kelljen minden lépéshez újra bejelentkezni
-		//majd implementálja az aki nem szenved alváshiányban jelenleg
-		public bool login(){
-			string username, password;
-			do {
-				WriteLine("Adja meg a felhasználónevét! ");
-				username = ReadLine();
-				WriteLine("Adja meg a jelszavát! ");
-				password = ReadLine();
-			} while (!isAlphaNum(username) && !db.containsUser(username, password));
-			WriteLine("Sikeres bejelentkezés!");
-			return true;
+			string[] result = new string[2];
+			result[0] = username;
+			result[1] = password;
+			return result;
 		}
 		bool isAlphaNum(string s){
 			if (string.IsNullOrEmpty(s) || string.IsNullOrWhiteSpace(s))
