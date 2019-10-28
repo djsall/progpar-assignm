@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Beadando {
 	class DB {
 		//igaz ha az adatbázisban van ilyen felhasználó
-		//out: admin flag, igaz ha admin az emberünk
-		public bool containsUser(string username, string password, out bool isAdmin){
+		public bool containsUser(string username, string password){
 			throw new NotImplementedException("nincs még adatbázis faszfej");
 		}
 		//igaz ha sikeres a beszúrás

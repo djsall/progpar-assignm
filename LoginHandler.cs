@@ -12,14 +12,13 @@ namespace Beadando {
 		}
 		//sikeres bejelentkezés, vagy nem, majd eldönti
 		public bool login(){
-			bool isAdmin;
 			string username, password;
 			do {
 				WriteLine("Adja meg a felhasználónevét! ");
 				username = ReadLine();
 				WriteLine("Adja meg a jelszavát! ");
 				password = ReadLine();
-			} while (!isAlphaNum(username) && !db.containsUser(username, password, out isAdmin));
+			} while (!isAlphaNum(username) && !db.containsUser(username, password));
 			WriteLine("Sikeres bejelentkezés!");
 			return true;
 		}
