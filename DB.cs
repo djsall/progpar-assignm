@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace Beadando {
+//TODO: módszer arra hogy megállapítsuk hogy admin e a köcsög, nyugodtan túrd szét az egészet
 	class DB {
 		//igaz ha az adatbázisban van ilyen felhasználó
 		public bool containsUser(string username, string password){
