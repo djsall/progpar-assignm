@@ -18,8 +18,6 @@ namespace Beadando_Forms {
 			comboBox1.DataSource = counties;
 			List<string> cities = new List<string>(File.ReadAllLines("irszVarKer.txt"));
 			comboBox2.DataSource = cities;
-
-
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
@@ -32,6 +30,13 @@ namespace Beadando_Forms {
 			cinemaName = textBox3.Text;
 			maintainerName = textBox4.Text;
 			db.createAdmin(county, city, street, cinemaName, maintainerName, houseNumber);
+
+		}
+
+		private void button2_Click(object sender, EventArgs e) {
+			Administrator admin = new Administrator();
+			admin.Show();
+			this.Hide();
 		}
 	}
 }

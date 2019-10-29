@@ -52,6 +52,12 @@
     <Compile Include="Administrator.Designer.cs">
       <DependentUpon>Administrator.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminRegister.Designer.cs">
+      <DependentUpon>AdminRegister.cs</DependentUpon>
+    </Compile>
     <Compile Include="checks.cs" />
     <Compile Include="CreateCinema.cs">
       <SubType>Form</SubType>
@@ -70,6 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Administrator.resx">
       <DependentUpon>Administrator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminRegister.resx">
+      <DependentUpon>AdminRegister.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateCinema.resx">
       <DependentUpon>CreateCinema.cs</DependentUpon>
