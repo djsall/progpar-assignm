@@ -45,6 +45,7 @@ namespace Beadando
 			Clear();
 			WriteLine("Sikeres regisztráció!");
 			WriteLine("Mozi létrehozása: ");
+			Cinema testCinema = new Cinema();
 		}
 	}
 }
