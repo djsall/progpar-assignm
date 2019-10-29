@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Beadando_Forms {
 	class DB {
-		void createAdmin(string county, string city, string street, string cinemaName, string maintainerName, int houseNumber){
+		public void createAdmin(string county, string city, string street, string cinemaName, string maintainerName, int houseNumber){
 			
 		}
 	}

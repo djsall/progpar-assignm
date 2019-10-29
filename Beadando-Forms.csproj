@@ -59,6 +59,7 @@
     <Compile Include="CreateCinema.Designer.cs">
       <DependentUpon>CreateCinema.cs</DependentUpon>
     </Compile>
+    <Compile Include="DB.cs" />
     <Compile Include="Startup.cs">
       <SubType>Form</SubType>
     </Compile>
