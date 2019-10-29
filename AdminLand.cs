@@ -5,6 +5,10 @@ namespace Beadando
 	public class AdminLand
 	{
 		LoginHandler loginH = new LoginHandler();
+		AdminLand()
+		{
+			showMenu();
+		}
 		void adminLogin()
 		{
 			bool result;
@@ -45,7 +49,20 @@ namespace Beadando
 			Clear();
 			WriteLine("Sikeres regisztráció!");
 			WriteLine("Mozi létrehozása: ");
-			Cinema testCinema = new Cinema();
+			string maintainerName, cinemaName, countyName, cityNameAndDistrict, streetName;
+			int houseNumber;
+			do
+			{
+				WriteLine("Adja meg a mozi üzemeltetőjének nevét: ");
+				maintainerName = ReadLine();
+			} while (!loginH.isAlphaNum(maintainerName));
+			do
+			{
+				WriteLine("Adja meg a mozi nevét: ");
+				cinemaName = ReadLine();
+			} while (!loginH.isAlphaNum(cinemaName));
+
+			Cinema testCinema = new Cinema(maintainerName, cinemaName, countyName, cityNameAndDistrict, streetName, houseNumber);
 		}
 	}
 }

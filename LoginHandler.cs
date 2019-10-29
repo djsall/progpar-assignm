@@ -54,7 +54,7 @@ namespace Beadando
 			result[1] = password;
 			return result;
 		}
-		bool isAlphaNum(string s)
+		public bool isAlphaNum(string s)
 		{
 			if (string.IsNullOrEmpty(s) || string.IsNullOrWhiteSpace(s))
 				return false;
