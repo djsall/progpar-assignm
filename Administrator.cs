@@ -33,5 +33,11 @@ namespace Beadando_Forms {
 		private void textBox1_TextChanged(object sender, EventArgs e) {
 			textBox2.UseSystemPasswordChar = true;
 		}
+
+		private void button3_Click(object sender, EventArgs e) {
+			Startup start = new Startup();
+			start.Show();
+			this.Hide();
+		}
 	}
 }
