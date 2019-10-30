@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Beadando_Forms {
 	public partial class CreateCinema : Form {
@@ -36,6 +37,9 @@ namespace Beadando_Forms {
 			Administrator admin = new Administrator();
 			admin.Show();
 			this.Hide();
+		}
+		private void button3_Click(object sender, EventArgs e) {
+			//valaki segítsen, nem tudok filebrowsert írni
 		}
 	}
 }
