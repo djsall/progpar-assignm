@@ -38,8 +38,24 @@ namespace Beadando_Forms {
 			admin.Show();
 			this.Hide();
 		}
+
 		private void button3_Click(object sender, EventArgs e) {
-			//valaki segítsen, nem tudok filebrowsert írni
+			OpenFileDialog openFileDialog1 = new OpenFileDialog();
+			openFileDialog1.ShowDialog();
+			openFileDialog1.CheckFileExists = true;
+			openFileDialog1.CheckPathExists = true;
+
+			string path = openFileDialog1.FileName;
+			string[] fileContents = File.ReadAllLines(path);
+
+			int week;
+			bool success = int.TryParse(fileContents[0], out week);
+			if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt! :)");
+			string[] tempFileContents = { "" };
+			for (int i = 1; i < fileContents.Length; i++) {
+				tempFileContents[i - 1] = fileContents[i];
+			}
+			db.saveMovies(week, tempFileContents);
 		}
 	}
 }

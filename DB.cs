@@ -9,5 +9,8 @@ namespace Beadando_Forms {
 		public void createAdmin(string county, string city, string street, string cinemaName, string maintainerName, int houseNumber){
 			
 		}
+		public void saveMovies(int week, string[] movies){
+
+		}
 	}
 }

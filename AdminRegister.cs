@@ -27,7 +27,7 @@ namespace Beadando_Forms {
 		private void button1_Click(object sender, EventArgs e) {
 			Administrator admin = new Administrator();
 			admin.Show();
-			this.Hide();
+			this.Close();
 		}
 	}
 }
