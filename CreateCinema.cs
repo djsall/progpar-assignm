@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Beadando_Forms {
 	public partial class CreateCinema : Form {
-		string username;
+		string username = "";
 		DB db = new DB();
 		public CreateCinema() {
 			InitializeComponent();
@@ -13,6 +13,14 @@ namespace Beadando_Forms {
 			comboBox1.DataSource = counties;
 			List<string> cities = new List<string>(File.ReadAllLines("irszVarKer.txt"));
 			comboBox2.DataSource = cities;
+			button1.Enabled = false;
+			comboBox1.Enabled = false;
+			comboBox2.Enabled = false;
+			comboBox3.Enabled = false;
+			textBox1.Enabled = false;
+			textBox2.Enabled = false;
+			textBox3.Enabled = false;
+			textBox4.Enabled = false;
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
@@ -69,6 +77,15 @@ namespace Beadando_Forms {
 				button5.Enabled = false;
 				button4.Enabled = false;
 
+				button1.Enabled = true;
+				comboBox1.Enabled = true;
+				comboBox2.Enabled = true;
+				comboBox3.Enabled = true;
+				textBox1.Enabled = true;
+				textBox2.Enabled = true;
+				textBox3.Enabled = true;
+				textBox4.Enabled = true;
+
 				comboBox3.DataSource = db.retrieveCinemaNames(username);
 
 			} else
@@ -89,6 +106,12 @@ namespace Beadando_Forms {
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
 			if (comboBox3.SelectedItem.ToString() == "") {
 				button1.Enabled = true;
+				comboBox1.Enabled = true;
+				comboBox2.Enabled = true;
+				textBox1.Enabled = true;
+				textBox2.Enabled = true;
+				textBox3.Enabled = true;
+				textBox4.Enabled = true;
 			} else{
 				button1.Enabled = false;
 				comboBox1.Enabled = false;

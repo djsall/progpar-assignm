@@ -9,7 +9,9 @@ namespace Beadando_Forms {
 		}
 		public bool Login(string username, string password){
 			bool success = false;
+
 			if (username == "Zoli") success = true; // FOR TESTING ONLY TODO: REMOVE
+
 			if (success)
 				return true;
 			else
@@ -28,7 +30,12 @@ namespace Beadando_Forms {
 			//tulajdonos nevét a bejelentkezéstől kéne beszereznie az admin oldalon
 			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
 			zoliMozijai.Insert(0,"");
+
 			return zoliMozijai;
+
+			/*List<string> results = new List<string>();
+			*results.Insert(0, "");
+			return results;*/
 		}
 		public bool registerAdmin(string username, string password){
 			if (selectUser(username)) {
