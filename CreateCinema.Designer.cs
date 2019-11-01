@@ -39,6 +39,8 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.comboBox3 = new System.Windows.Forms.ComboBox();
+			this.label7 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -161,7 +163,7 @@
 			// 
 			// button3
 			// 
-			this.button3.Location = new System.Drawing.Point(438, 82);
+			this.button3.Location = new System.Drawing.Point(232, 202);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(100, 23);
 			this.button3.TabIndex = 16;
@@ -173,11 +175,30 @@
 			// 
 			this.openFileDialog1.FileName = "openFileDialog1";
 			// 
+			// comboBox3
+			// 
+			this.comboBox3.FormattingEnabled = true;
+			this.comboBox3.Location = new System.Drawing.Point(12, 204);
+			this.comboBox3.Name = "comboBox3";
+			this.comboBox3.Size = new System.Drawing.Size(205, 21);
+			this.comboBox3.TabIndex = 17;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(12, 188);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(56, 13);
+			this.label7.TabIndex = 18;
+			this.label7.Text = "Mozi neve";
+			// 
 			// CreateCinema
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.comboBox3);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
@@ -218,5 +239,7 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.ComboBox comboBox3;
+		private System.Windows.Forms.Label label7;
 	}
 }

@@ -12,6 +12,7 @@ namespace Beadando_Forms {
 			comboBox1.DataSource = counties;
 			List<string> cities = new List<string>(File.ReadAllLines("irszVarKer.txt"));
 			comboBox2.DataSource = cities;
+			comboBox3.DataSource = db.retrieveCinemaNames("Zoli");
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
@@ -23,7 +24,8 @@ namespace Beadando_Forms {
 			houseNumber = int.Parse(textBox2.Text);
 			cinemaName = textBox3.Text;
 			maintainerName = textBox4.Text;
-			db.createAdmin(county, city, street, cinemaName, maintainerName, houseNumber);
+			DateTime creationTime = DateTime.Now;
+			db.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
@@ -41,14 +43,13 @@ namespace Beadando_Forms {
 			string path = openFileDialog1.FileName;
 			string[] fileContents = File.ReadAllLines(path);
 
-			int week;
-			bool success = int.TryParse(fileContents[0], out week);
+			bool success = int.TryParse(fileContents[0], out int week);
 			if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt! :)");
 			string[] tempFileContents = { "" };
 			for (int i = 1; i < fileContents.Length; i++) {
 				tempFileContents[i - 1] = fileContents[i];
 			}
-			db.saveMovies(week, tempFileContents);
+			db.saveMovies(week, tempFileContents, comboBox3.SelectedItem.ToString());
 		}
 	}
 }
