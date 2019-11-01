@@ -85,5 +85,21 @@ namespace Beadando_Forms {
 			textBox2.UseSystemPasswordChar = true;
 
 		}
+
+		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
+			if (comboBox3.SelectedItem.ToString() == "") {
+				button1.Enabled = true;
+			} else{
+				button1.Enabled = false;
+				comboBox1.Enabled = false;
+				comboBox2.Enabled = false;
+				textBox1.Enabled = false;
+				textBox2.Enabled = false;
+				textBox3.Enabled = false;
+				textBox4.Enabled = false;
+
+			}
+
+		}
 	}
 }

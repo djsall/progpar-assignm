@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 namespace Beadando_Forms {
 	public partial class AdminRegister : Form {
+		DB db = new DB();
 		public AdminRegister() {
 			InitializeComponent();
 		}
@@ -21,6 +22,17 @@ namespace Beadando_Forms {
 			CreateCinema myForm = (CreateCinema)Application.OpenForms["CreateCinema"];
 			this.Close();
 			myForm.Show();
+		}
+
+		private void button2_Click(object sender, EventArgs e) {
+			string username = textBox1.Text,
+						 password = textBox2.Text,
+						 cPassword = textBox3.Text;
+			if (password == cPassword){ 
+				if (db.registerAdmin(username, password))
+					MessageBox.Show("Sikeres regisztráció!\nLépjen vissza, majd lépjen be és töltse fel a mozija adatait!");
+			}else
+				MessageBox.Show("A megadott jelszavak nem egyeznek meg.");
 		}
 	}
 }

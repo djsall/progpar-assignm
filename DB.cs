@@ -19,11 +19,23 @@ namespace Beadando_Forms {
 		//DATABASE ENTRY-POINT
 		//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 		}
+		public bool selectUser(string username){
+			//megnézi hogy van e az adatbázisban ilyen felhasználónév
+			return false;
+		}
 		public List<string> retrieveCinemaNames(string ownerName){
 			//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
 			//tulajdonos nevét a bejelentkezéstől kéne beszereznie az admin oldalon
 			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
+			zoliMozijai.Insert(0,"");
 			return zoliMozijai;
+		}
+		public bool registerAdmin(string username, string password){
+			if (selectUser(username)) {
+				MessageBox.Show("Ez a név már foglalt.\nPróbáljon meg belépni, vagy vegye fel a kapcsolatot az adminisztrátorral.");
+				return false;
+			} else
+				return true;
 		}
 		public void saveMovies(int week, string[] movies, string selectedCinemaName){
 			foreach (var item in movies) {
