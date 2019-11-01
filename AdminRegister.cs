@@ -18,9 +18,9 @@ namespace Beadando_Forms {
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
-			CreateCinema admin = new CreateCinema();
-			admin.Show();
+			CreateCinema myForm = (CreateCinema)Application.OpenForms["CreateCinema"];
 			this.Close();
+			myForm.Show();
 		}
 	}
 }

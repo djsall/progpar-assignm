@@ -4,8 +4,16 @@ using System.Windows.Forms;
 
 namespace Beadando_Forms {
 	class DB {
-		public void createCinema(string county, string city, string street, string cinemaName, string maintainerName, int houseNumber, DateTime creationTime){
+		public void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime){
 			
+		}
+		public bool Login(string username, string password){
+			bool success = false;
+			if (username == "Zoli") success = true; // FOR TESTING ONLY TODO: REMOVE
+			if (success)
+				return true;
+			else
+				return false;
 		}
 		public void pushToDb(string selectedCinemaName, int week, string genres, string starring, int playtime, string producer, string title, string ScreeningDate, string ScreeningTime, int ageRestriction){
 		//DATABASE ENTRY-POINT
@@ -14,7 +22,7 @@ namespace Beadando_Forms {
 		public List<string> retrieveCinemaNames(string ownerName){
 			//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
 			//tulajdonos nevét a bejelentkezéstől kéne beszereznie az admin oldalon
-			List<string> zoliMozijai = new List<string>() { "Zsoli mozija", "Forró naci mozi" };
+			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
 			return zoliMozijai;
 		}
 		public void saveMovies(int week, string[] movies, string selectedCinemaName){

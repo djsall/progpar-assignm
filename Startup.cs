@@ -13,8 +13,8 @@ namespace Beadando_Forms {
 
 		private void button1_Click(object sender, EventArgs e) {
 			CreateCinema create = new CreateCinema();
-			create.Show();
 			this.Hide();
+			create.Show();
 		}
 	}
 }

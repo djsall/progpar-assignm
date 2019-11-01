@@ -5,6 +5,7 @@ using System.IO;
 
 namespace Beadando_Forms {
 	public partial class CreateCinema : Form {
+		string username;
 		DB db = new DB();
 		public CreateCinema() {
 			InitializeComponent();
@@ -12,26 +13,26 @@ namespace Beadando_Forms {
 			comboBox1.DataSource = counties;
 			List<string> cities = new List<string>(File.ReadAllLines("irszVarKer.txt"));
 			comboBox2.DataSource = cities;
-			comboBox3.DataSource = db.retrieveCinemaNames("Zoli");
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
-			string county, city, street, cinemaName, maintainerName;
-			int houseNumber;
+			string county, city, street, cinemaName, maintainerName, houseNumber;
+
 			county = comboBox1.SelectedValue.ToString();
 			city = comboBox2.SelectedValue.ToString();
 			street = textBox1.Text;
-			houseNumber = int.Parse(textBox2.Text);
+			houseNumber = textBox2.Text;
 			cinemaName = textBox3.Text;
 			maintainerName = textBox4.Text;
 			DateTime creationTime = DateTime.Now;
+
 			db.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
-			Startup start = new Startup();
-			start.Show();
-			this.Hide();
+			Startup myForm = (Startup)Application.OpenForms["Startup"];
+			this.Close();
+			myForm.Show();
 		}
 
 		private void button3_Click(object sender, EventArgs e) {
@@ -44,7 +45,8 @@ namespace Beadando_Forms {
 			string[] fileContents = File.ReadAllLines(path);
 
 			bool success = int.TryParse(fileContents[0], out int week);
-			if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt! :)");
+			if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt!");
+
 			string[] tempFileContents = { "" };
 			for (int i = 1; i < fileContents.Length; i++) {
 				tempFileContents[i - 1] = fileContents[i];
@@ -53,13 +55,30 @@ namespace Beadando_Forms {
 		}
 
 		private void button5_Click(object sender, EventArgs e) {
+			string uname = textBox6.Text;
+			string password = textBox5.Text;
 
+			bool login = db.Login(uname, password);
+			if (login){
+				MessageBox.Show("Sikeres Bejelentkezés!");
+
+				username = uname;
+
+				textBox5.Enabled = false;
+				textBox6.Enabled = false;
+				button5.Enabled = false;
+				button4.Enabled = false;
+
+				comboBox3.DataSource = db.retrieveCinemaNames(username);
+
+			} else
+				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!");
 		}
 
 		private void button4_Click(object sender, EventArgs e) {
 			AdminRegister register = new AdminRegister();
-			register.Show();
 			this.Hide();
+			register.Show();
 		}
 
 		private void textBox5_TextChanged(object sender, EventArgs e) {
