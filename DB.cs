@@ -10,7 +10,7 @@ namespace Beadando_Forms {
 			if (!existsAlready) {
 				//mehet az adatbázisba
 			} else
-				MessageBox.Show("Már létezik ez a mozi asz adatbázisban!");
+				MessageBox.Show("Már létezik ez a mozi az adatbázisban!");
 		}
 		public bool Login(string username, string password){
 			//adatbázisból kiszopkodja hogy van e password és username kombó ami megfelelő
