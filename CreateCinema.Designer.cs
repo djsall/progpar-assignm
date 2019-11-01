@@ -159,9 +159,9 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(357, 82);
+			this.button2.Location = new System.Drawing.Point(610, 158);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.Size = new System.Drawing.Size(182, 23);
 			this.button2.TabIndex = 15;
 			this.button2.Text = "Vissza";
 			this.button2.UseVisualStyleBackColor = true;
