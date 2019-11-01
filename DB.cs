@@ -5,12 +5,18 @@ using System.Windows.Forms;
 namespace Beadando_Forms {
 	class DB {
 		public void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime){
-			
+			//mozit menti el, ha nem létezik még
+			bool existsAlready = false; //ennek figyelembe kéne vennie a címet és a mozi nevét is
+			if (!existsAlready) {
+				//mehet az adatbázisba
+			} else
+				MessageBox.Show("Már létezik ez a mozi asz adatbázisban!");
 		}
 		public bool Login(string username, string password){
+			//adatbázisból kiszopkodja hogy van e password és username kombó ami megfelelő
 			bool success = false;
 
-			if (username == "Zoli") success = true; // FOR TESTING ONLY TODO: REMOVE
+			if (username == "Zoli") success = true; // tesztelni van
 
 			if (success)
 				return true;
@@ -18,8 +24,12 @@ namespace Beadando_Forms {
 				return false;
 		}
 		public void pushToDb(string selectedCinemaName, int week, string genres, string starring, int playtime, string producer, string title, string ScreeningDate, string ScreeningTime, int ageRestriction){
-		//DATABASE ENTRY-POINT
-		//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
+			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
+			bool isRightWeek = true;
+			if (isRightWeek) {
+				//adatbázisba mehet
+			} else
+				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
 		}
 		public bool selectUser(string username){
 			//megnézi hogy van e az adatbázisban ilyen felhasználónév
@@ -27,14 +37,13 @@ namespace Beadando_Forms {
 		}
 		public List<string> retrieveCinemaNames(string ownerName){
 			//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
-			//tulajdonos nevét a bejelentkezéstől kéne beszereznie az admin oldalon
 			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
 			zoliMozijai.Insert(0,"");
 
 			return zoliMozijai;
 
-			/*List<string> results = new List<string>();
-			*results.Insert(0, "");
+			/*List<string> results = new List<string>(); 
+			*results.Insert(0, ""); ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
 			return results;*/
 		}
 		public bool registerAdmin(string username, string password){

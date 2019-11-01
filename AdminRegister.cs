@@ -18,10 +18,6 @@ namespace Beadando_Forms {
 
 		}
 
-		private void button1_Click(object sender, EventArgs e) {
-			this.Close();
-		}
-
 		private void button2_Click(object sender, EventArgs e) {
 			string username = textBox1.Text,
 						 password = textBox2.Text,
