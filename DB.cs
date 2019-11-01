@@ -14,6 +14,9 @@ namespace Beadando_Forms {
 			
 		}
 		public void saveMovies(int week, string[] movies){
+			foreach (var item in movies) {
+				string[] line = item.Split('\t');
+			}
 			//loop movies-ra, soronként és tabonként bontva a tulajdonságokat átadja adatbázis feltöltő metódusnak
 		}
 	}
