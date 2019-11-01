@@ -94,7 +94,6 @@ namespace Beadando_Forms {
 
 		private void button4_Click(object sender, EventArgs e) {
 			AdminRegister register = new AdminRegister();
-			this.Hide();
 			register.Show();
 		}
 
