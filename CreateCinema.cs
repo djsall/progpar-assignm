@@ -29,7 +29,7 @@ namespace Beadando_Forms {
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
-			Administrator admin = new Administrator();
+			CreateCinema admin = new CreateCinema();
 			admin.Show();
 			this.Hide();
 		}
@@ -50,6 +50,21 @@ namespace Beadando_Forms {
 				tempFileContents[i - 1] = fileContents[i];
 			}
 			db.saveMovies(week, tempFileContents, comboBox3.SelectedItem.ToString());
+		}
+
+		private void button5_Click(object sender, EventArgs e) {
+
+		}
+
+		private void button4_Click(object sender, EventArgs e) {
+			AdminRegister register = new AdminRegister();
+			register.Show();
+			this.Hide();
+		}
+
+		private void textBox5_TextChanged(object sender, EventArgs e) {
+			textBox2.UseSystemPasswordChar = true;
+
 		}
 	}
 }

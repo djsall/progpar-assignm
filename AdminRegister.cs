@@ -18,7 +18,7 @@ namespace Beadando_Forms {
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
-			Administrator admin = new Administrator();
+			CreateCinema admin = new CreateCinema();
 			admin.Show();
 			this.Close();
 		}

@@ -41,6 +41,12 @@
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.comboBox3 = new System.Windows.Forms.ComboBox();
 			this.label7 = new System.Windows.Forms.Label();
+			this.button4 = new System.Windows.Forms.Button();
+			this.button5 = new System.Windows.Forms.Button();
+			this.label8 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.textBox5 = new System.Windows.Forms.TextBox();
+			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -192,11 +198,70 @@
 			this.label7.TabIndex = 18;
 			this.label7.Text = "Mozi neve";
 			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(610, 129);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(182, 23);
+			this.button4.TabIndex = 24;
+			this.button4.Text = "Regisztráció!";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(610, 100);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(182, 23);
+			this.button5.TabIndex = 23;
+			this.button5.Text = "Belépés!";
+			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(610, 57);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(36, 13);
+			this.label8.TabIndex = 22;
+			this.label8.Text = "Jelszó";
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(610, 9);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(81, 13);
+			this.label9.TabIndex = 21;
+			this.label9.Text = "Felhasználónév";
+			// 
+			// textBox5
+			// 
+			this.textBox5.Location = new System.Drawing.Point(610, 73);
+			this.textBox5.Name = "textBox5";
+			this.textBox5.Size = new System.Drawing.Size(182, 20);
+			this.textBox5.TabIndex = 20;
+			this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+			// 
+			// textBox6
+			// 
+			this.textBox6.Location = new System.Drawing.Point(610, 25);
+			this.textBox6.Name = "textBox6";
+			this.textBox6.Size = new System.Drawing.Size(182, 20);
+			this.textBox6.TabIndex = 19;
+			// 
 			// CreateCinema
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.button4);
+			this.Controls.Add(this.button5);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.label9);
+			this.Controls.Add(this.textBox5);
+			this.Controls.Add(this.textBox6);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.comboBox3);
 			this.Controls.Add(this.button3);
@@ -241,5 +306,11 @@
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.ComboBox comboBox3;
 		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.Button button5;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.TextBox textBox5;
+		private System.Windows.Forms.TextBox textBox6;
 	}
 }

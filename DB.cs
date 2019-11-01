@@ -13,6 +13,7 @@ namespace Beadando_Forms {
 		}
 		public List<string> retrieveCinemaNames(string ownerName){
 			//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
+			//tulajdonos nevét a bejelentkezéstől kéne beszereznie az admin oldalon
 			List<string> zoliMozijai = new List<string>() { "Zsoli mozija", "Forró naci mozi" };
 			return zoliMozijai;
 		}
