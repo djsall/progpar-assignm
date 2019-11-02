@@ -122,20 +122,22 @@ namespace Beadando_Forms {
 
 		public void saveMovies(int week, string[] movies, string selectedCinemaName) {
 			MovieHandler mov = new MovieHandler();
-			movie mT  = new movie();
 			
 			foreach (var item in movies) {
 
 				string[] line = item.Split('\t');
 				string[] genreProc = line[0].Split('/');
-				mT.genres = new string[genreProc.Length];
-				mT.starring = line[1];
-				mT.producer = line[3];
-				mT.title = line[4];
-				mT.ScreeningDate = line[5];
-				mT.ScreeningTime = line[6];
-				mT.week = week;
-				mT.selectedCinemaName = selectedCinemaName;
+
+				movie mT = new movie {
+					genres = new string[genreProc.Length],
+					starring = line[1],
+					producer = line[3],
+					title = line[4],
+					ScreeningDate = line[5],
+					ScreeningTime = line[6],
+					week = week,
+					selectedCinemaName = selectedCinemaName
+				};
 
 				for (int i = 0; i < genreProc.Length; i++) 
 					if (mov.movieTypes.Contains(genreProc[i].ToLower()))
