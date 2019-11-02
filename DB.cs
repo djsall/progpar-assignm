@@ -49,26 +49,30 @@ namespace Beadando_Forms {
 
 			return zoliMozijai;
 
-			/*List<string> results = new List<string>();
-			*results.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
-			return results;*/
+			/*List<string> result = new List<string>();
+			*result.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
+			return result;*/
 		}
 		public List<string> retrieveCinemaNamesByLocation(string location) {
 			//a helység alapján keresi meg az összes létező mozit abban a helységben, majd listába foglalja
-			//a location string minden esetben az irszVarKer.txt fájlból fog származni
-			List<string> zoliMozijai = new List<string>() { "", "Zoli mozija", "Forró naci mozi" };
+			//a location string minden esetben az irszVarKer.txt fájlból fog származni és a többi adatbázisba beszúrás is, szóval mindig lesz egyezés ha van megfelelő elem
+			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
+			zoliMozijai.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 			return zoliMozijai;
 		}
 		public List<string> retrieveMovieNamesByLocationAndCinemaName(string cinemaName){
 		//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
 		//itt hagytam példának és tesztelésnek az alábbi listát
-			List<string> movies = new List<string>() { "", "Film címe, műfaja/műfajai, 2019-11-06, 13:35" };
-			return movies;
+			List<string> result = new List<string>() { "Film címe, műfaja/műfajai, 2019-11-06, 13:35" };
+			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
+
+			return result;
 		}
 		public List<string> retrieveMoviesByGenres(string genre){
 			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program. 
 			//A kiválaszott genre alapján kér egy listát a filmekről, a városról és a vetítés dátumáról és idejéről kombózva, ahogy a példán látható
-			List<string> result = new List<string>() { "", "A Film címe, Debrecen, 2019-11-06, 13:35" };
+			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06, 13:35" };
+			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 
 
 			result.Sort(); //kell, mert abc sorrendet kér a feladat
