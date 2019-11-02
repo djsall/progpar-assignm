@@ -111,6 +111,7 @@ namespace Beadando_Forms {
 				textBox2.Enabled = true;
 				textBox3.Enabled = true;
 				textBox4.Enabled = true;
+				button3.Enabled = false;
 			} else{
 				button1.Enabled = false;
 				comboBox1.Enabled = false;
@@ -119,9 +120,8 @@ namespace Beadando_Forms {
 				textBox2.Enabled = false;
 				textBox3.Enabled = false;
 				textBox4.Enabled = false;
-
+				button3.Enabled = true;
 			}
-
 		}
 	}
 }
