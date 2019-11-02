@@ -75,22 +75,36 @@ namespace Beadando_Forms {
 			return result;
 		}
 		public movie searchForMovie(movie mov){
-			movie result = new movie();
-			//minden megadott paraméterből összerak egy teljes movie struktúrát és azt adja vissza.
-			result.ageRestriction = 14;
-			result.genres = mov.genres;
-			result.playtime = 120;
-			result.ScreeningDate = mov.ScreeningDate;
-			result.ScreeningTime = mov.ScreeningTime;
-			result.selectedCinemaName = mov.selectedCinemaName;
-			result.starring = "Angelina Fuckface";
-			result.title = mov.title;
-			result.producer = "Cristopher Nolan";
+			//minden megadott paraméterekből(genres, vetítési idő és dátum, kiválasztott mozi neve) összerak egy teljes movie struktúrát és azt adja vissza.
+			movie result = new movie {
+				title = mov.title,
+				genres = mov.genres,
+				ScreeningDate = mov.ScreeningDate,
+				ScreeningTime = mov.ScreeningTime,
+				selectedCinemaName = mov.selectedCinemaName,
 
-				
+				playtime = 120,
+				ageRestriction = 14,
+				starring = "Angelina Fuckface",
+				producer = "Cristopher Nolan"
+			};
 
+			return result;
+		}
+		public movie searchForMovie2(movie mov, string location){
+			//megadott paraméterekből(cím, dátum, óra) és a vetítés helyszínéből visszaadja kiegészítve a movie struktúrát
+			movie result = new movie {
+				ScreeningDate = mov.ScreeningDate,
+				ScreeningTime = mov.ScreeningTime,
+				title = mov.title,
 
-
+				genres = new string[] { "Akció", "Vígjáték "},
+				ageRestriction = 14,
+				playtime = 120,
+				selectedCinemaName = "Melegbár",
+				starring = "Nicholas Ketrec",
+				producer = "Cristopher Nolan"
+			};
 			return result;
 		}
 

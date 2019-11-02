@@ -2,8 +2,10 @@
 using System.Windows.Forms;
 
 namespace Beadando_Forms {
+
 	public partial class Startup : Form {
-		DB db = new DB();
+		private DB db = new DB();
+
 		public Startup() {
 			InitializeComponent();
 
@@ -15,7 +17,6 @@ namespace Beadando_Forms {
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
-
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
@@ -33,9 +34,16 @@ namespace Beadando_Forms {
 			string cinemaName = comboBox2.SelectedItem.ToString();
 			comboBox1.DataSource = db.retrieveMovieNamesByLocationAndCinemaName(cinemaName);
 			comboBox1.Enabled = false;
-			if (comboBox3.Text != "") 
+			if (comboBox3.Text != "")
 				comboBox1.Enabled = true;
+			if (comboBox3.Text != "") {
+				comboBox5.Enabled = false;
+				comboBox4.Enabled = false;
+			} else {
+				comboBox5.Enabled = true;
+				comboBox4.Enabled = true;
 			}
+		}
 
 		private void comboBox4_SelectedIndexChanged(object sender, EventArgs e) {
 			string genre = comboBox4.SelectedItem.ToString();
@@ -45,20 +53,18 @@ namespace Beadando_Forms {
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
 			textBox1.ReadOnly = true;
 
-			if(comboBox1.Text != "" && comboBox3.Text != ""){
+			if (comboBox1.Text != "" && comboBox3.Text != "") {
 				//Film címe, műfaja, 2019-11-06, 13:35
-				string[] searchValues = comboBox1.Text.Split(',');
 
-				for(int i = 0; i < searchValues.Length; i++)
-					searchValues[i] = searchValues[i].Replace(" ", "");
+				string[] searchValues = comboBox1.Text.Replace(", ", ",").Split(',');
 
-				movie mov = new movie();
-
-				mov.title = searchValues[0];
-				mov.genres = searchValues[1].Split('/');
-				mov.ScreeningDate = searchValues[2];
-				mov.ScreeningTime = searchValues[3];
-				mov.selectedCinemaName = comboBox3.Text;
+				movie mov = new movie {
+					title = searchValues[0],
+					genres = searchValues[1].Split('/'),
+					ScreeningDate = searchValues[2],
+					ScreeningTime = searchValues[3],
+					selectedCinemaName = comboBox3.Text
+				};
 
 				movie result = db.searchForMovie(mov);
 
@@ -68,6 +74,22 @@ namespace Beadando_Forms {
 
 		private void comboBox5_SelectedIndexChanged(object sender, EventArgs e) {
 			//A Film címe, Debrecen, 2019-11-06, 13:35
+			if (comboBox4.Text != "" && comboBox5.Text != "") {
+				comboBox3.Enabled = false;
+				string[] searchValues = comboBox5.Text.Split(',');
+
+				for (int i = 0; i < searchValues.Length; i++)
+					searchValues[i] = searchValues[i].Replace(" ", "");
+
+				movie mov = new movie {
+					title = searchValues[0],
+					ScreeningDate = searchValues[2],
+					ScreeningTime = searchValues[3]
+				};
+				movie result = db.searchForMovie2(mov, searchValues[1]);
+				textBox1.Text = result.ToString();
+			} else
+				comboBox3.Enabled = true;
 		}
 	}
 }
