@@ -76,10 +76,7 @@ namespace Beadando_Forms {
 			//A Film címe, Debrecen, 2019-11-06, 13:35
 			if (comboBox4.Text != "" && comboBox5.Text != "") {
 				comboBox3.Enabled = false;
-				string[] searchValues = comboBox5.Text.Split(',');
-
-				for (int i = 0; i < searchValues.Length; i++)
-					searchValues[i] = searchValues[i].Replace(" ", "");
+				string[] searchValues = comboBox5.Text.Replace(", ", ",").Split(',');
 
 				movie mov = new movie {
 					title = searchValues[0],
