@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Beadando_Forms {
 	struct movie {
-		public string genres,
-									starring,
+		public string[] genres;
+		public string starring,
 									producer,
 									title,
 									ScreeningDate,

@@ -27,11 +27,11 @@ namespace Beadando_Forms {
 				return false;
 		}
 
-		public void pushToDb(string selectedCinemaName, int week, string genres, string starring, int playtime, string producer, string title, string ScreeningDate, string ScreeningTime, int ageRestriction) {
+		public void pushToDb(movie mt) {
 			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 			bool isRightWeek = true;
 			if (isRightWeek) {
-				Console.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}", selectedCinemaName, week, genres, starring, playtime, producer, title, ScreeningDate, ScreeningTime, ageRestriction);
+				Console.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}", mt.selectedCinemaName, mt.week, mt.genres, mt.starring, mt.playtime, mt.producer, mt.title, mt.ScreeningDate, mt.ScreeningTime, mt.ageRestriction);
 				//adatbázisba mehet
 			} else
 				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
@@ -64,12 +64,12 @@ namespace Beadando_Forms {
 
 		public void saveMovies(int week, string[] movies, string selectedCinemaName) {
 			Movie mov = new Movie();
+			movie mT = new movie();
 			foreach (var item in movies) {
+
 				string[] line = item.Split('\t');
+				string[] genreProc = line[0].Split(',');
 
-				movie mT = new movie();
-
-				mT.genres = "";
 				mT.starring = line[1];
 				mT.producer = line[3];
 				mT.title = line[4];
@@ -78,17 +78,15 @@ namespace Beadando_Forms {
 				mT.week = week;
 				mT.selectedCinemaName = selectedCinemaName;
 
-				string[] genreProc = line[0].Split(',');
-
-				foreach (var currGenre in genreProc) 
-					if (mov.movieTypes.Contains(line[0].ToLower()))
-						mT.genres += currGenre;
-						
+				for (int i = 0; i < genreProc.Length; i++) 
+					if (mov.movieTypes.Contains(genreProc[i].ToLower()))
+						mT.genres[i] = genreProc[i]+' ';
+										
 				bool playtimeCheck = int.TryParse(line[2], out mT.playtime),
 						 ageRestrictionCheck = int.TryParse(line[7], out mT.ageRestriction);
 
 				if (playtimeCheck && ageRestrictionCheck)
-					pushToDb(mT.selectedCinemaName, mT.week, mT.genres, mT.starring, mT.playtime, mT.producer, mT.title, mT.ScreeningDate, mT.ScreeningTime, mT.ageRestriction);
+					pushToDb(mT);
 				else
 					MessageBox.Show("Számérték helyén más található a feldolgozandó fájlban. Kérem javítsa!");
 			}
