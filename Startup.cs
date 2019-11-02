@@ -38,5 +38,9 @@ namespace Beadando_Forms {
 			string genre = comboBox4.SelectedItem.ToString();
 			comboBox5.DataSource = db.retrieveMoviesByGenres(genre);
 		}
+
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
+
+		}
 	}
 }
