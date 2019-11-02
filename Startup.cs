@@ -5,6 +5,7 @@ namespace Beadando_Forms {
 	public partial class Startup : Form {
 		public Startup() {
 			InitializeComponent();
+
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
@@ -15,6 +16,10 @@ namespace Beadando_Forms {
 			CreateCinema create = new CreateCinema();
 			this.Hide();
 			create.Show();
+		}
+
+		private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
+
 		}
 	}
 }
