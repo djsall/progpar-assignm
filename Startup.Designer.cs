@@ -34,6 +34,8 @@
 			this.comboBox4 = new System.Windows.Forms.ComboBox();
 			this.comboBox5 = new System.Windows.Forms.ComboBox();
 			this.label4 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -103,7 +105,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(9, 111);
+			this.label3.Location = new System.Drawing.Point(9, 85);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(33, 13);
 			this.label3.TabIndex = 24;
@@ -112,7 +114,7 @@
 			// comboBox4
 			// 
 			this.comboBox4.FormattingEnabled = true;
-			this.comboBox4.Location = new System.Drawing.Point(12, 127);
+			this.comboBox4.Location = new System.Drawing.Point(12, 101);
 			this.comboBox4.Name = "comboBox4";
 			this.comboBox4.Size = new System.Drawing.Size(175, 21);
 			this.comboBox4.TabIndex = 23;
@@ -121,25 +123,44 @@
 			// comboBox5
 			// 
 			this.comboBox5.FormattingEnabled = true;
-			this.comboBox5.Location = new System.Drawing.Point(193, 127);
+			this.comboBox5.Location = new System.Drawing.Point(193, 101);
 			this.comboBox5.Name = "comboBox5";
 			this.comboBox5.Size = new System.Drawing.Size(595, 21);
 			this.comboBox5.TabIndex = 25;
+			this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(190, 111);
+			this.label4.Location = new System.Drawing.Point(190, 85);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(186, 13);
 			this.label4.TabIndex = 26;
 			this.label4.Text = "Filmek címe, város neve és időpontja:";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(9, 155);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(689, 20);
+			this.textBox1.TabIndex = 27;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(6, 139);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(66, 13);
+			this.label5.TabIndex = 28;
+			this.label5.Text = "Film részletei";
 			// 
 			// Startup
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(793, 190);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.comboBox5);
 			this.Controls.Add(this.label3);
@@ -172,6 +193,8 @@
 		private System.Windows.Forms.ComboBox comboBox4;
 		private System.Windows.Forms.ComboBox comboBox5;
 		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Label label5;
 	}
 }
 

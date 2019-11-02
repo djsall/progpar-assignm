@@ -56,22 +56,41 @@ namespace Beadando_Forms {
 		public List<string> retrieveCinemaNamesByLocation(string location) {
 			//a helység alapján keresi meg az összes létező mozit abban a helységben, majd listába foglalja
 			//a location string minden esetben az irszVarKer.txt fájlból fog származni
-			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
+			List<string> zoliMozijai = new List<string>() { "", "Zoli mozija", "Forró naci mozi" };
 			return zoliMozijai;
 		}
 		public List<string> retrieveMovieNamesByLocationAndCinemaName(string cinemaName){
 		//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
 		//itt hagytam példának és tesztelésnek az alábbi listát
-			List<string> movies = new List<string>() { "Film címe (műfaja) 2019-11-06 13:35" };
+			List<string> movies = new List<string>() { "", "Film címe, műfaja/műfajai, 2019-11-06, 13:35" };
 			return movies;
 		}
 		public List<string> retrieveMoviesByGenres(string genre){
 			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program. 
 			//A kiválaszott genre alapján kér egy listát a filmekről, a városról és a vetítés dátumáról és idejéről kombózva, ahogy a példán látható
-			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06 13:35" };
+			List<string> result = new List<string>() { "", "A Film címe, Debrecen, 2019-11-06, 13:35" };
 
 
 			result.Sort(); //kell, mert abc sorrendet kér a feladat
+			return result;
+		}
+		public movie searchForMovie(movie mov){
+			movie result = new movie();
+			//minden megadott paraméterből összerak egy teljes movie struktúrát és azt adja vissza.
+			result.ageRestriction = 14;
+			result.genres = mov.genres;
+			result.playtime = 120;
+			result.ScreeningDate = mov.ScreeningDate;
+			result.ScreeningTime = mov.ScreeningTime;
+			result.selectedCinemaName = mov.selectedCinemaName;
+			result.starring = "Angelina Fuckface";
+			result.title = mov.title;
+			result.producer = "Cristopher Nolan";
+
+				
+
+
+
 			return result;
 		}
 
@@ -90,7 +109,7 @@ namespace Beadando_Forms {
 			foreach (var item in movies) {
 
 				string[] line = item.Split('\t');
-				string[] genreProc = line[0].Split(',');
+				string[] genreProc = line[0].Split('/');
 				mT.genres = new string[genreProc.Length];
 				mT.starring = line[1];
 				mT.producer = line[3];

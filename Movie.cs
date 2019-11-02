@@ -2,7 +2,7 @@
 
 namespace Beadando_Forms {
 
-	internal struct movie {
+	internal struct movie{ 
 		public string[] genres;
 
 		public string starring,
@@ -18,10 +18,12 @@ namespace Beadando_Forms {
 
 		public override string ToString() {
 			string output = "";
-			foreach (var item in genres) {
-				output += item + ", ";
-			}
-			output += starring + ", " + producer + ", " + title + ", " + ScreeningDate + ", " + ScreeningTime + ", " + selectedCinemaName + ", " + playtime + ", " + ageRestriction + ", " + week;
+			output += genres[0];
+
+			for (int i = 0; i < genres.Length; i++) 
+				if (0 < i && i < genres.Length) output += "/"+genres[i];
+
+			output += ", Főszereplő(k): "+starring + ", Rendező: " + producer + ", Cím: " + title + ", Vetítés: " + ScreeningDate + " " + ScreeningTime + " - A " + selectedCinemaName + " moziban, Játékidő:" + playtime + " prec, Korhatár: " + ageRestriction + " éves kor";
 
 			return output;
 		}
