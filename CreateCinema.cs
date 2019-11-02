@@ -86,7 +86,7 @@ namespace Beadando_Forms {
 				textBox3.Enabled = true;
 				textBox4.Enabled = true;
 
-				comboBox3.DataSource = db.retrieveCinemaNames(username);
+				comboBox3.DataSource = db.retrieveCinemaNamesByOwner(username);
 
 			} else
 				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!", "Hiba",MessageBoxButtons.OK,MessageBoxIcon.Error);

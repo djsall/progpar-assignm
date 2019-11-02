@@ -42,7 +42,7 @@ namespace Beadando_Forms {
 			return false;
 		}
 
-		public List<string> retrieveCinemaNames(string ownerName) {
+		public List<string> retrieveCinemaNamesByOwner(string ownerName) {
 			//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
 			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
 			zoliMozijai.Insert(0, "");
@@ -52,6 +52,27 @@ namespace Beadando_Forms {
 			/*List<string> results = new List<string>();
 			*results.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
 			return results;*/
+		}
+		public List<string> retrieveCinemaNamesByLocation(string location) {
+			//a helység alapján keresi meg az összes létező mozit abban a helységben, majd listába foglalja
+			//a location string minden esetben az irszVarKer.txt fájlból fog származni
+			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
+			return zoliMozijai;
+		}
+		public List<string> retrieveMovieNamesByLocationAndCinemaName(string cinemaName){
+		//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
+		//itt hagytam példának és tesztelésnek az alábbi listát
+			List<string> movies = new List<string>() { "Film címe (műfaja) 2019-11-06 13:35" };
+			return movies;
+		}
+		public List<string> retrieveMoviesByGenres(string genre){
+			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program. 
+			//A kiválaszott genre alapján kér egy listát a filmekről, a városról és a vetítés dátumáról és idejéről kombózva, ahogy a példán látható
+			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06 13:35" };
+
+
+			result.Sort(); //kell, mert abc sorrendet kér a feladat
+			return result;
 		}
 
 		public bool registerAdmin(string username, string password) {
