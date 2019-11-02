@@ -17,8 +17,17 @@ namespace Beadando_Forms {
 		public int playtime,
 							 ageRestriction,
 							 week;
+		public override string ToString() {
+			string output = "";
+			foreach (var item in genres) {
+				output +=item+", ";
+			}
+			output += starring + ", " + producer + ", " + title + ", " + ScreeningDate + ", " + ScreeningTime + ", " + selectedCinemaName + ", " + playtime + ", " + ageRestriction + ", " + week;
+
+			return output;
+		}
 	};
-	class Movie {
+	class MovieHandler {
 		public List<string> movieTypes = new List<string>() {
 		"akció",
 		"animáció",

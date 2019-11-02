@@ -31,7 +31,7 @@ namespace Beadando_Forms {
 			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 			bool isRightWeek = true;
 			if (isRightWeek) {
-				Console.WriteLine("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}", mt.selectedCinemaName, mt.week, mt.genres, mt.starring, mt.playtime, mt.producer, mt.title, mt.ScreeningDate, mt.ScreeningTime, mt.ageRestriction);
+				Console.WriteLine(mt);
 				//adatbázisba mehet
 			} else
 				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
@@ -63,13 +63,14 @@ namespace Beadando_Forms {
 		}
 
 		public void saveMovies(int week, string[] movies, string selectedCinemaName) {
-			Movie mov = new Movie();
-			movie mT = new movie();
+			MovieHandler mov = new MovieHandler();
+			movie mT  = new movie();
+			
 			foreach (var item in movies) {
 
 				string[] line = item.Split('\t');
 				string[] genreProc = line[0].Split(',');
-
+				mT.genres = new string[genreProc.Length];
 				mT.starring = line[1];
 				mT.producer = line[3];
 				mT.title = line[4];
@@ -80,7 +81,7 @@ namespace Beadando_Forms {
 
 				for (int i = 0; i < genreProc.Length; i++) 
 					if (mov.movieTypes.Contains(genreProc[i].ToLower()))
-						mT.genres[i] = genreProc[i]+' ';
+						mT.genres[i] = genreProc[i];
 										
 				bool playtimeCheck = int.TryParse(line[2], out mT.playtime),
 						 ageRestrictionCheck = int.TryParse(line[7], out mT.ageRestriction);
