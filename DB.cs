@@ -50,7 +50,7 @@ namespace Beadando_Forms {
 			return zoliMozijai;
 
 			/*List<string> results = new List<string>();
-			*results.Insert(0, ""); ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
+			*results.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
 			return results;*/
 		}
 
@@ -63,21 +63,32 @@ namespace Beadando_Forms {
 		}
 
 		public void saveMovies(int week, string[] movies, string selectedCinemaName) {
+			Movie mov = new Movie();
 			foreach (var item in movies) {
 				string[] line = item.Split('\t');
 
-				string genres = line[0],
-							 starring = line[1],
-							 producer = line[3],
-							 title = line[4],
-							 ScreeningDate = line[5],
-							 ScreeningTime = line[6];
+				movie mT = new movie();
 
-				bool playtimeCheck = int.TryParse(line[2], out int playtime),
-						 ageRestrictionCheck = int.TryParse(line[7], out int ageRestriction);
+				mT.genres = "";
+				mT.starring = line[1];
+				mT.producer = line[3];
+				mT.title = line[4];
+				mT.ScreeningDate = line[5];
+				mT.ScreeningTime = line[6];
+				mT.week = week;
+				mT.selectedCinemaName = selectedCinemaName;
+
+				string[] genreProc = line[0].Split(',');
+
+				foreach (var currGenre in genreProc) 
+					if (mov.movieTypes.Contains(line[0].ToLower()))
+						mT.genres += currGenre;
+						
+				bool playtimeCheck = int.TryParse(line[2], out mT.playtime),
+						 ageRestrictionCheck = int.TryParse(line[7], out mT.ageRestriction);
 
 				if (playtimeCheck && ageRestrictionCheck)
-					pushToDb(selectedCinemaName, week, genres, starring, playtime, producer, title, ScreeningDate, ScreeningTime, ageRestriction);
+					pushToDb(mT.selectedCinemaName, mT.week, mT.genres, mT.starring, mT.playtime, mT.producer, mT.title, mT.ScreeningDate, mT.ScreeningTime, mT.ageRestriction);
 				else
 					MessageBox.Show("Számérték helyén más található a feldolgozandó fájlban. Kérem javítsa!");
 			}
