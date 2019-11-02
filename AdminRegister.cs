@@ -24,9 +24,9 @@ namespace Beadando_Forms {
 						 cPassword = textBox3.Text;
 			if (password == cPassword){ 
 				if (db.registerAdmin(username, password))
-					MessageBox.Show("Sikeres regisztráció!\nLépjen vissza, majd lépjen be és töltse fel a mozija adatait!");
+					MessageBox.Show("Sikeres regisztráció!\nLépjen vissza, majd lépjen be és töltse fel a mozija adatait!", "Sikeres regisztráció!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}else
-				MessageBox.Show("A megadott jelszavak nem egyeznek meg.");
+				MessageBox.Show("A megadott jelszavak nem egyeznek meg.", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 	}
 }

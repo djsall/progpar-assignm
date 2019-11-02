@@ -9,10 +9,12 @@ namespace Beadando_Forms {
 		DB db = new DB();
 		public CreateCinema() {
 			InitializeComponent();
-			List<string> counties = new List<string>() { "Bács-Kiskun", "Baranya", "Békés", "Borsod-Abaúj-Zemplén", "Csongrád", "Fejér", "Győr-Moson-Sopron", "Hajdú-Bihar", "Heves", "Jász-Nagykun-Szolnok", "Komárom-Esztergom", "Nógrád", "Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna", "Vas", "Veszprém", "Zala" };
-			comboBox1.DataSource = counties;
-			List<string> cities = new List<string>(File.ReadAllLines("irszVarKer.txt"));
-			comboBox2.DataSource = cities;
+
+			LocationsHandler locations = new LocationsHandler();
+
+			comboBox1.DataSource = locations.counties;
+			comboBox2.DataSource = locations.cities;
+
 			button1.Enabled = false;
 			comboBox1.Enabled = false;
 			comboBox2.Enabled = false;
@@ -53,7 +55,7 @@ namespace Beadando_Forms {
 			string[] fileContents = File.ReadAllLines(path);
 
 			bool success = int.TryParse(fileContents[0], out int week);
-			if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt!");
+			if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 			string[] tempFileContents = { "" };
 			for (int i = 1; i < fileContents.Length; i++) {
@@ -68,8 +70,6 @@ namespace Beadando_Forms {
 
 			bool login = db.Login(uname, password);
 			if (login){
-				MessageBox.Show("Sikeres Bejelentkezés!");
-
 				username = uname;
 
 				textBox5.Enabled = false;
@@ -89,7 +89,7 @@ namespace Beadando_Forms {
 				comboBox3.DataSource = db.retrieveCinemaNames(username);
 
 			} else
-				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!");
+				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!", "Hiba",MessageBoxButtons.OK,MessageBoxIcon.Error);
 		}
 
 		private void button4_Click(object sender, EventArgs e) {

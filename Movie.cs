@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Beadando_Forms {
-	struct movie {
+
+	internal struct movie {
 		public string[] genres;
+
 		public string starring,
 									producer,
 									title,
@@ -17,17 +15,20 @@ namespace Beadando_Forms {
 		public int playtime,
 							 ageRestriction,
 							 week;
+
 		public override string ToString() {
 			string output = "";
 			foreach (var item in genres) {
-				output +=item+", ";
+				output += item + ", ";
 			}
 			output += starring + ", " + producer + ", " + title + ", " + ScreeningDate + ", " + ScreeningTime + ", " + selectedCinemaName + ", " + playtime + ", " + ageRestriction + ", " + week;
 
 			return output;
 		}
 	};
-	class MovieHandler {
+
+	internal class MovieHandler {
+
 		public List<string> movieTypes = new List<string>() {
 		"akció",
 		"animáció",
@@ -52,6 +53,5 @@ namespace Beadando_Forms {
 		"történelmi",
 		"western"
 		};
-		
 	}
 }
