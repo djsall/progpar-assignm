@@ -1,21 +1,49 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Data.SQLite;
+using System.Data.Sql;
+using System.Data;
+using System.IO;
+
 
 namespace Beadando_Forms {
 
-	internal class DB {
+	static internal class DB {
 
-		public void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
+        static SQLiteConnection connection;
+        public const string DatabasePath = "data.db";
+
+        static DB()
+        {
+            if (!File.Exists(DatabasePath))
+            {
+                SQLiteConnection.CreateFile(DatabasePath);
+                connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+                connection.Open();
+                Console.WriteLine(connection.FileName);
+                return;
+            }
+            connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+            connection.Open();
+            Console.WriteLine(connection.FileName);
+        }
+
+        public static void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
 			//mozit menti el, ha nem létezik még
 			bool existsAlready = false; //ennek figyelembe kéne vennie a címet és a mozi nevét is
+
+            SQLiteCommand command = new SQLiteCommand(connection);
+
 			if (!existsAlready) {
 				//mehet az adatbázisba
 			} else
 				MessageBox.Show("Már létezik ez a mozi az adatbázisban!");
 		}
 
-		public bool Login(string username, string password) {
+		public static bool Login(string username, string password) {
 			//adatbázisból kiszopkodja hogy van e password és username kombó ami megfelelő
 			bool success = false;
 
@@ -27,7 +55,7 @@ namespace Beadando_Forms {
 				return false;
 		}
 
-		public void pushToDb(movie mt) {
+		public static void pushToDb(movie mt) {
 			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 			bool isRightWeek = true;
 			if (isRightWeek) {
@@ -37,12 +65,12 @@ namespace Beadando_Forms {
 				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
 		}
 
-		public bool selectUser(string username) {
+		public static bool selectUser(string username) {
 			//megnézi hogy van e az adatbázisban ilyen felhasználónév
 			return false;
 		}
 
-		public List<string> retrieveCinemaNamesByOwner(string ownerName) {
+		public static List<string> retrieveCinemaNamesByOwner(string ownerName) {
 			//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
 			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
 			zoliMozijai.Insert(0, "");
@@ -53,14 +81,14 @@ namespace Beadando_Forms {
 			*result.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
 			return result;*/
 		}
-		public List<string> retrieveCinemaNamesByLocation(string location) {
+		public static List<string> retrieveCinemaNamesByLocation(string location) {
 			//a helység alapján keresi meg az összes létező mozit abban a helységben, majd listába foglalja
 			//a location string minden esetben az irszVarKer.txt fájlból fog származni és a többi adatbázisba beszúrás is, szóval mindig lesz egyezés ha van megfelelő elem
 			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
 			zoliMozijai.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 			return zoliMozijai;
 		}
-		public List<string> retrieveMovieNamesByLocationAndCinemaName(string cinemaName){
+		public static List<string> retrieveMovieNamesByLocationAndCinemaName(string cinemaName){
 		//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
 		//itt hagytam példának és tesztelésnek az alábbi listát
 			List<string> result = new List<string>() { "Film címe, műfaja/műfajai, 2019-11-06, 13:35" };
@@ -68,7 +96,7 @@ namespace Beadando_Forms {
 
 			return result;
 		}
-		public List<string> retrieveMoviesByGenres(string genre){
+		public static List<string> retrieveMoviesByGenres(string genre){
 			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program. 
 			//A kiválaszott genre alapján kér egy listát a filmekről, a városról és a vetítés dátumáról és idejéről kombózva, ahogy a példán látható
 			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06, 13:35" };
@@ -78,7 +106,7 @@ namespace Beadando_Forms {
 			result.Sort(); //kell, mert abc sorrendet kér a feladat
 			return result;
 		}
-		public movie searchForMovie(movie mov){
+		public static movie searchForMovie(movie mov){
 			//minden megadott paraméterekből(genres, vetítési idő és dátum, kiválasztott mozi neve) összerak egy teljes movie struktúrát és azt adja vissza.
 			movie result = new movie {
 				title = mov.title,
@@ -95,7 +123,7 @@ namespace Beadando_Forms {
 
 			return result;
 		}
-		public movie searchForMovie2(movie mov, string location){
+		public static movie searchForMovie2(movie mov, string location){
 			//megadott paraméterekből(cím, dátum, óra) és a vetítés helyszínéből visszaadja kiegészítve a movie struktúrát
 			movie result = new movie {
 				ScreeningDate = mov.ScreeningDate,
@@ -112,7 +140,7 @@ namespace Beadando_Forms {
 			return result;
 		}
 
-		public bool registerAdmin(string username, string password) {
+		public static bool registerAdmin(string username, string password) {
 			if (selectUser(username)) {
 				MessageBox.Show("Ez a név már foglalt.\nPróbáljon meg belépni, vagy vegye fel a kapcsolatot az adminisztrátorral.");
 				return false;
@@ -120,7 +148,7 @@ namespace Beadando_Forms {
 				return true;
 		}
 
-		public void saveMovies(int week, string[] movies, string selectedCinemaName) {
+		public static void saveMovies(int week, string[] movies, string selectedCinemaName) {
 			MovieHandler mov = new MovieHandler();
 			
 			foreach (var item in movies) {

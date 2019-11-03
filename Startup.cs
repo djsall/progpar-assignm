@@ -4,7 +4,6 @@ using System.Windows.Forms;
 namespace Beadando_Forms {
 
 	public partial class Startup : Form {
-		private DB db = new DB();
 
 		public Startup() {
 			InitializeComponent();
@@ -27,12 +26,12 @@ namespace Beadando_Forms {
 
 		private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
 			string selectedLocation = comboBox2.SelectedItem.ToString();
-			comboBox3.DataSource = db.retrieveCinemaNamesByLocation(selectedLocation);
+			comboBox3.DataSource = DB.retrieveCinemaNamesByLocation(selectedLocation);
 		}
 
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
 			string cinemaName = comboBox2.SelectedItem.ToString();
-			comboBox1.DataSource = db.retrieveMovieNamesByLocationAndCinemaName(cinemaName);
+			comboBox1.DataSource = DB.retrieveMovieNamesByLocationAndCinemaName(cinemaName);
 			comboBox1.Enabled = false;
 			if (comboBox3.Text != "")
 				comboBox1.Enabled = true;
@@ -47,7 +46,7 @@ namespace Beadando_Forms {
 
 		private void comboBox4_SelectedIndexChanged(object sender, EventArgs e) {
 			string genre = comboBox4.SelectedItem.ToString();
-			comboBox5.DataSource = db.retrieveMoviesByGenres(genre);
+			comboBox5.DataSource = DB.retrieveMoviesByGenres(genre);
 		}
 
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
@@ -66,7 +65,7 @@ namespace Beadando_Forms {
 					selectedCinemaName = comboBox3.Text
 				};
 
-				movie result = db.searchForMovie(mov);
+				movie result = DB.searchForMovie(mov);
 
 				textBox1.Text = result.ToString();
 			}
@@ -83,7 +82,7 @@ namespace Beadando_Forms {
 					ScreeningDate = searchValues[2],
 					ScreeningTime = searchValues[3]
 				};
-				movie result = db.searchForMovie2(mov, searchValues[1]);
+				movie result = DB.searchForMovie2(mov, searchValues[1]);
 				textBox1.Text = result.ToString();
 			} else
 				comboBox3.Enabled = true;

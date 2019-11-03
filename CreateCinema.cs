@@ -6,7 +6,6 @@ using System.IO;
 namespace Beadando_Forms {
 	public partial class CreateCinema : Form {
 		string username = "";
-		DB db = new DB();
 		public CreateCinema() {
 			InitializeComponent();
 
@@ -36,7 +35,7 @@ namespace Beadando_Forms {
 			maintainerName = textBox4.Text;
 			DateTime creationTime = DateTime.Now;
 
-			db.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
+			DB.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
@@ -61,14 +60,14 @@ namespace Beadando_Forms {
 			for (int i = 1; i < fileContents.Length; i++) {
 				tempFileContents[i - 1] = fileContents[i];
 			}
-			db.saveMovies(week, tempFileContents, comboBox3.SelectedItem.ToString());
+			DB.saveMovies(week, tempFileContents, comboBox3.SelectedItem.ToString());
 		}
 
 		private void button5_Click(object sender, EventArgs e) {
 			string uname = textBox6.Text;
 			string password = textBox5.Text;
 
-			bool login = db.Login(uname, password);
+			bool login = DB.Login(uname, password);
 			if (login){
 				username = uname;
 
@@ -86,7 +85,7 @@ namespace Beadando_Forms {
 				textBox3.Enabled = true;
 				textBox4.Enabled = true;
 
-				comboBox3.DataSource = db.retrieveCinemaNamesByOwner(username);
+				comboBox3.DataSource = DB.retrieveCinemaNamesByOwner(username);
 
 			} else
 				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!", "Hiba",MessageBoxButtons.OK,MessageBoxIcon.Error);
