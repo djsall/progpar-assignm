@@ -13,22 +13,21 @@ namespace Beadando_Forms {
 
 	static internal class DB {
 
-        static SQLiteConnection connection;
-        public const string DatabasePath = "data.db";
+    static SQLiteConnection connection;
+    public const string DatabasePath = "data.db";
 
-        static DB()
-        {
-            if (!File.Exists(DatabasePath))
-            {
-                SQLiteConnection.CreateFile(DatabasePath);
-                connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
-                connection.Open();
-                Console.WriteLine(connection.FileName);
-                return;
-            }
-            connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
-            connection.Open();
-            Console.WriteLine(connection.FileName);
+		static DB(){
+      if (!File.Exists(DatabasePath))
+      {
+          SQLiteConnection.CreateFile(DatabasePath);
+          connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+          connection.Open();
+          Console.WriteLine(connection.FileName);
+          return;
+      }
+      connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+      connection.Open();
+      Console.WriteLine(connection.FileName);
         }
 
         public static void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
@@ -44,7 +43,7 @@ namespace Beadando_Forms {
 		}
 
 		public static bool Login(string username, string password) {
-			//adatbázisból kiszopkodja hogy van e password és username kombó ami megfelelő
+			//adatbázisból kihozza hogy van e password és username kombó ami megfelelő
 			bool success = false;
 
 			if (username == "Zoli") success = true; // tesztelni van
@@ -72,7 +71,7 @@ namespace Beadando_Forms {
 
 		public static List<string> retrieveCinemaNamesByOwner(string ownerName) {
 			//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
-			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
+			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Maci mozi" };
 			zoliMozijai.Insert(0, "");
 
 			return zoliMozijai;
@@ -84,7 +83,7 @@ namespace Beadando_Forms {
 		public static List<string> retrieveCinemaNamesByLocation(string location) {
 			//a helység alapján keresi meg az összes létező mozit abban a helységben, majd listába foglalja
 			//a location string minden esetben az irszVarKer.txt fájlból fog származni és a többi adatbázisba beszúrás is, szóval mindig lesz egyezés ha van megfelelő elem
-			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Forró naci mozi" };
+			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Maci mozi" };
 			zoliMozijai.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 			return zoliMozijai;
 		}
@@ -117,7 +116,7 @@ namespace Beadando_Forms {
 
 				playtime = 120,
 				ageRestriction = 14,
-				starring = "Angelina Fuckface",
+				starring = "Angelina NoLife",
 				producer = "Cristopher Nolan"
 			};
 
@@ -133,7 +132,7 @@ namespace Beadando_Forms {
 				genres = new string[] { "Akció", "Vígjáték "},
 				ageRestriction = 14,
 				playtime = 120,
-				selectedCinemaName = "Melegbár",
+				selectedCinemaName = "Homono Mozi és Bár",
 				starring = "Nicholas Ketrec",
 				producer = "Cristopher Nolan"
 			};
