@@ -8,33 +8,29 @@ using System.Data.Sql;
 using System.Data;
 using System.IO;
 
-
 namespace Beadando_Forms {
-
 	static internal class DB {
+		//static SQLiteConnection connection;
+		//public const string DatabasePath = "data.db";
 
-    static SQLiteConnection connection;
-    public const string DatabasePath = "data.db";
+		//static DB() {
+		//	if (!File.Exists(DatabasePath)) {
+		//		SQLiteConnection.CreateFile(DatabasePath);
+		//		connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+		//		connection.Open();
+		//		Console.WriteLine(connection.FileName);
+		//		return;
+		//	}
+		//	connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+		//	connection.Open();
+		//	Console.WriteLine(connection.FileName);
+		//}
 
-		static DB(){
-      if (!File.Exists(DatabasePath))
-      {
-          SQLiteConnection.CreateFile(DatabasePath);
-          connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
-          connection.Open();
-          Console.WriteLine(connection.FileName);
-          return;
-      }
-      connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
-      connection.Open();
-      Console.WriteLine(connection.FileName);
-        }
-
-        public static void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
+		public static void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
 			//mozit menti el, ha nem létezik még
 			bool existsAlready = false; //ennek figyelembe kéne vennie a címet és a mozi nevét is
 
-            SQLiteCommand command = new SQLiteCommand(connection);
+			//SQLiteCommand command = new SQLiteCommand(connection);
 
 			if (!existsAlready) {
 				//mehet az adatbázisba
@@ -87,25 +83,24 @@ namespace Beadando_Forms {
 			zoliMozijai.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 			return zoliMozijai;
 		}
-		public static List<string> retrieveMovieNamesByLocationAndCinemaName(string cinemaName){
-		//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
-		//itt hagytam példának és tesztelésnek az alábbi listát
+		public static List<string> retrieveMovieNamesByCinemaName(string cinemaName) {
+			//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
+			//itt hagytam példának és tesztelésnek az alábbi listát
 			List<string> result = new List<string>() { "Film címe, műfaja/műfajai, 2019-11-06, 13:35" };
 			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 
 			return result;
 		}
-		public static List<string> retrieveMoviesByGenres(string genre){
-			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program. 
+		public static List<string> retrieveMoviesByGenres(string genre) {
+			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program.
 			//A kiválaszott genre alapján kér egy listát a filmekről, a városról és a vetítés dátumáról és idejéről kombózva, ahogy a példán látható
 			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06, 13:35" };
 			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 
-
 			result.Sort(); //kell, mert abc sorrendet kér a feladat
 			return result;
 		}
-		public static movie searchForMovie(movie mov){
+		public static movie searchForMovie(movie mov) {
 			//minden megadott paraméterekből(genres, vetítési idő és dátum, kiválasztott mozi neve) összerak egy teljes movie struktúrát és azt adja vissza.
 			movie result = new movie {
 				title = mov.title,
@@ -122,14 +117,14 @@ namespace Beadando_Forms {
 
 			return result;
 		}
-		public static movie searchForMovie2(movie mov, string location){
+		public static movie searchForMovie2(movie mov, string location) {
 			//megadott paraméterekből(cím, dátum, óra) és a vetítés helyszínéből visszaadja kiegészítve a movie struktúrát
 			movie result = new movie {
 				ScreeningDate = mov.ScreeningDate,
 				ScreeningTime = mov.ScreeningTime,
 				title = mov.title,
 
-				genres = new string[] { "Akció", "Vígjáték "},
+				genres = new string[] { "Akció", "Vígjáték " },
 				ageRestriction = 14,
 				playtime = 120,
 				selectedCinemaName = "Homono Mozi és Bár",
@@ -149,9 +144,8 @@ namespace Beadando_Forms {
 
 		public static void saveMovies(int week, string[] movies, string selectedCinemaName) {
 			MovieHandler mov = new MovieHandler();
-			
-			foreach (var item in movies) {
 
+			foreach (var item in movies) {
 				string[] line = item.Split('\t');
 				string[] genreProc = line[0].Split('/');
 
@@ -166,10 +160,10 @@ namespace Beadando_Forms {
 					selectedCinemaName = selectedCinemaName
 				};
 
-				for (int i = 0; i < genreProc.Length; i++) 
+				for (int i = 0; i < genreProc.Length; i++)
 					if (mov.movieTypes.Contains(genreProc[i].ToLower()))
 						mT.genres[i] = genreProc[i];
-										
+
 				bool playtimeCheck = int.TryParse(line[2], out mT.playtime),
 						 ageRestrictionCheck = int.TryParse(line[7], out mT.ageRestriction);
 

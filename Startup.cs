@@ -2,9 +2,7 @@
 using System.Windows.Forms;
 
 namespace Beadando_Forms {
-
 	public partial class Startup : Form {
-
 		public Startup() {
 			InitializeComponent();
 
@@ -31,7 +29,7 @@ namespace Beadando_Forms {
 
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
 			string cinemaName = comboBox2.SelectedItem.ToString();
-			comboBox1.DataSource = DB.retrieveMovieNamesByLocationAndCinemaName(cinemaName);
+			comboBox1.DataSource = DB.retrieveMovieNamesByCinemaName(cinemaName);
 			comboBox1.Enabled = false;
 			if (comboBox3.Text != "")
 				comboBox1.Enabled = true;
