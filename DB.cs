@@ -10,21 +10,33 @@ using System.IO;
 
 namespace Beadando_Forms {
 	static internal class DB {
-		//static SQLiteConnection connection;
-		//public const string DatabasePath = "data.db";
+		static SQLiteConnection connection;
+		public const string DatabasePath = "data.db";
 
-		//static DB() {
-		//	if (!File.Exists(DatabasePath)) {
-		//		SQLiteConnection.CreateFile(DatabasePath);
-		//		connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
-		//		connection.Open();
-		//		Console.WriteLine(connection.FileName);
-		//		return;
-		//	}
-		//	connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
-		//	connection.Open();
-		//	Console.WriteLine(connection.FileName);
+		static DB() {
+			//if (!File.Exists(DatabasePath)) {
+				SQLiteConnection.CreateFile(DatabasePath);
+				connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+				connection.Open();
+				string[] createTablesCommand = { "create table 'Mozik'.'Varosok' ( 'Megye' VARCHAR, 'IrszVarKer' VARCHAR )",
+																			 	 "create table 'Mozik'.'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR )",
+																				 "create table 'Mozik'.'Tulaj' ( 'Felhasznalo' VARCHAR, 'Jelszo' VARCHAR )",
+																				 "create table 'Mozik'.'Kapcsolat' ( 'Mozi_ID' INTEGER PRIMARY KEY, 'Filmek_Vetitesi_het' VARCHAR, 'Tulaj_Felhasznalo' VARCHAR )",
+																				 "create table 'Mozik'.'Vetitesek' ( 'Vetitesi_datum' VARCHAR, 'Vetitesi_ido' VARCHAR, 'F_cim' VARCHAR )",
+																				 "create table 'Mozik'.'Filmek' ( 'F_Cim' VARCHAR', 'Mufaj' VARCHAR, 'Hossz' INTEGER, 'Korhatar' INTEGER, 'Vetitesi_het' INTEGER )",
+																				 "create table 'Mozik'.'Foszereplo' ('Szineszek' VARCHAR, 'F_Cim' VARCHAR)"};
+
+				foreach (string item in createTablesCommand) {
+					SQLiteCommand prepDb = new SQLiteCommand(item, connection);
+					prepDb.ExecuteNonQuery();
+				}																 
+				//Console.WriteLine(connection.FileName);
+			//return;
 		//}
+		//connection = new SQLiteConnection("Data Source=" + DatabasePath, true);
+		//connection.Open();
+		//Console.WriteLine(connection.FileName);
+		}
 
 		public static void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
 			//mozit menti el, ha nem létezik még
