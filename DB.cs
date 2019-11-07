@@ -57,15 +57,12 @@ namespace Beadando_Forms {
 			};
 
 			if (count == 1) {
-				success = true;
 				connection.Close();
-			} else
-				connection.Close();
-
-			if (success)
 				return true;
-			else
+			} else{
+				connection.Close();
 				return false;
+			}
 		}
 
 		public static void pushToDb(movie mt) {
