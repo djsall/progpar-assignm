@@ -46,7 +46,6 @@ namespace Beadando_Forms {
 		public static bool Login(string username, string password) {
 			//adatbázisból kihozza hogy van e password és username kombó ami megfelelő
 			connection.Open();
-			bool success = false;
 			int count = 0;
 
 			using (SQLiteCommand command = connection.CreateCommand()) {
