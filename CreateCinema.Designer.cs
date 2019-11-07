@@ -243,7 +243,7 @@
 			this.textBox5.Name = "textBox5";
 			this.textBox5.Size = new System.Drawing.Size(182, 20);
 			this.textBox5.TabIndex = 20;
-			this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+			this.textBox5.PasswordChar = '*';
 			// 
 			// textBox6
 			// 

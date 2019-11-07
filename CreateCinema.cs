@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 
@@ -94,13 +93,7 @@ namespace Beadando_Forms {
 		private void button4_Click(object sender, EventArgs e) {
 			AdminRegister register = new AdminRegister();
 			register.Show();
-		}
-
-		private void textBox5_TextChanged(object sender, EventArgs e) {
-			textBox2.UseSystemPasswordChar = true;
-
-		}
-
+		}		
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
 			if (comboBox3.SelectedItem.ToString() == "") {
 				button1.Enabled = true;
