@@ -16,15 +16,14 @@ namespace Beadando_Forms {
 				SQLiteConnection.CreateFile(DatabasePath);
 				connection.Open();
 				string[] createTablesCommand = {  "create table 'Varosok' ( 'Megye' VARCHAR, 'IrszVarKer' VARCHAR )",
-																					"create table 'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR, 'Nev' VARCHAR )",
+																					"create table 'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR, 'Nev' VARCHAR, 'Tulaj_Nev' VARCHAR )",
 																					"create table 'Tulaj' ( 'Felhasznalo' VARCHAR, 'Jelszo' VARCHAR )",
-																					"create table 'Kapcsolat' ( 'Mozi_ID' INTEGER PRIMARY KEY, 'Filmek_Vetitesi_het' VARCHAR, 'Tulaj_Felhasznalo' VARCHAR )",
+																					"create table 'Kapcsolat' ( 'Mozi_ID' INTEGER PRIMARY KEY, 'Filmek_Vetitesi_het' VARCHAR )",
 																					"create table 'Vetitesek' ( 'Vetitesi_datum' VARCHAR, 'Vetitesi_ido' VARCHAR, 'F_cim' VARCHAR )",
 																					"create table 'Filmek' ( 'F_Cim' VARCHAR, 'Mufaj' VARCHAR, 'Hossz' INTEGER, 'Korhatar' INTEGER, 'Vetitesi_het' INTEGER )",
 																					"create table 'Foszereplo' ('Szineszek' VARCHAR, 'F_Cim' VARCHAR)",
 																					"insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('Zoli', 'jelszo')",
-																					"insert into 'Mozi' ('ID', 'IrszVarKer', 'Utca', 'H_szam', 'Nev') values ('0', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija')",
-																					"insert into 'Kapcsolat' ('Mozi_ID, 'Filmek_Vetitesi_het', 'Tulaj_Felhasznalo') values ('0', '12', 'Zoli')"};
+																					"insert into 'Mozi' ('ID', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev') values ('0', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli')"};
 
 				foreach (string item in createTablesCommand) {
 					SQLiteCommand prepDb = new SQLiteCommand(item, connection);
@@ -77,20 +76,20 @@ namespace Beadando_Forms {
 		}
 
 		public static List<string> retrieveCinemaNamesByOwner(string ownerName) {
+			List<string> result = new List<string>();
+			result.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
+			
 			connection.Open();
 			using  (SQLiteCommand command = connection.CreateCommand()){
-				command.CommandText = "SELECT * FROM ";
+				command.CommandText = "SELECT 'NEV' FROM 'Mozi' WHERE 'Mozi'.'Tulaj_Nev'='" + ownerName + "'";
+				command.CommandType = System.Data.CommandType.Text;
+				SQLiteDataReader r = command.ExecuteReader();
+				while (r.Read()) {
+					result.Add(Convert.ToString(r["NEV"]));
+				}
 			}
 
-				//a tulajdonos nevét veszi át, majd megkeresi a hozzá tartozó mozikat
-				List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Maci mozi" };
-			zoliMozijai.Insert(0, "");
-
-			return zoliMozijai;
-
-			/*List<string> result = new List<string>();
-			*result.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
-			return result;*/
+			return result;
 		}
 
 		public static List<string> retrieveCinemaNamesByLocation(string location) {
