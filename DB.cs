@@ -112,15 +112,6 @@ namespace Beadando_Forms {
 			}
 		}
 
-		public static void pushToDb(movie mt) {
-			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
-			bool isRightWeek = true;
-			if (isRightWeek) {
-				Console.WriteLine(mt);
-				//adatbázisba mehet
-			} else
-				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
-		}
 
 		public static List<string> retrieveCinemaNamesByOwner(string ownerName) {
 			List<string> result = new List<string>();
@@ -154,6 +145,15 @@ namespace Beadando_Forms {
 			connection.Close();
 			return result;
 		}
+		public static void pushToDb(movie mt) {
+			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
+			bool isRightWeek = true;
+			if (isRightWeek) {
+				Console.WriteLine(mt);
+				//adatbázisba mehet
+			} else
+				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
+		}
 
 		public static List<string> retrieveMovieNamesByCinemaName(string cinemaName) {
 			//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
@@ -165,11 +165,24 @@ namespace Beadando_Forms {
 		}
 
 		public static List<string> retrieveMoviesByGenres(string genre) {
+			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06, 13:35" };
+
 			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program.
 			//A kiválaszott genre alapján kér egy listát a filmekről, a városról és a vetítés dátumáról és idejéről kombózva, ahogy a példán látható
-			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06, 13:35" };
-			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
+			connection.Open();
+			using (SQLiteCommand command = connection.CreateCommand()) {
+				command.CommandText = "SELECT F_Cim FROM 'Filmek' WHERE 'Filmek'.'Mufaj'='" + genre + "'";
+				command.CommandType = CommandType.Text;
+				SQLiteDataReader r = command.ExecuteReader();
+				while (r.Read())
+					result.Add(Convert.ToString(r[0]));
+			}
+			connection.Close();
 
+
+
+
+			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 			result.Sort(); //kell, mert abc sorrendet kér a feladat
 			return result;
 		}
