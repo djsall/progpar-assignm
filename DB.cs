@@ -80,24 +80,32 @@ namespace Beadando_Forms {
 			result.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
 			
 			connection.Open();
-			using  (SQLiteCommand command = connection.CreateCommand()){
-				command.CommandText = "SELECT 'NEV' FROM 'Mozi' WHERE 'Mozi'.'Tulaj_Nev'='" + ownerName + "'";
+			using (SQLiteCommand command = connection.CreateCommand()){
+				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'Tulaj_Nev'='" + ownerName + "'";
 				command.CommandType = System.Data.CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
-				while (r.Read()) {
-					result.Add(Convert.ToString(r["NEV"]));
-				}
+				while (r.Read())
+					result.Add(Convert.ToString(r[0]));
 			}
-
+			connection.Close();
 			return result;
 		}
 
 		public static List<string> retrieveCinemaNamesByLocation(string location) {
 			//a helység alapján keresi meg az összes létező mozit abban a helységben, majd listába foglalja
-			//a location string minden esetben az irszVarKer.txt fájlból fog származni és a többi adatbázisba beszúrás is, szóval mindig lesz egyezés ha van megfelelő elem
-			List<string> zoliMozijai = new List<string>() { "Zoli mozija", "Maci mozi" };
-			zoliMozijai.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
-			return zoliMozijai;
+			List<string> result = new List<string>();
+			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
+
+			connection.Open();
+			using (SQLiteCommand command = connection.CreateCommand()){
+				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'IrszVarKer'='" + location + "'";
+				command.CommandType = System.Data.CommandType.Text;
+				SQLiteDataReader r = command.ExecuteReader();
+				while (r.Read())
+					result.Add(Convert.ToString(r[0]));
+			}
+			connection.Close();
+			return result;
 		}
 
 		public static List<string> retrieveMovieNamesByCinemaName(string cinemaName) {

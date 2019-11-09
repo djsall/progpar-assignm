@@ -23,7 +23,7 @@ namespace Beadando_Forms {
 		}
 
 		private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
-			string selectedLocation = comboBox2.SelectedItem.ToString();
+			string selectedLocation = comboBox2.Text;
 			comboBox3.DataSource = DB.retrieveCinemaNamesByLocation(selectedLocation);
 		}
 
