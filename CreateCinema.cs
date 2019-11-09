@@ -20,7 +20,6 @@ namespace Beadando_Forms {
 			textBox1.Enabled = false;
 			textBox2.Enabled = false;
 			textBox3.Enabled = false;
-			textBox4.Enabled = false;
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
@@ -31,10 +30,13 @@ namespace Beadando_Forms {
 			street = textBox1.Text;
 			houseNumber = textBox2.Text;
 			cinemaName = textBox3.Text;
-			maintainerName = textBox4.Text;
+			maintainerName = username;
 			DateTime creationTime = DateTime.Now;
 
 			DB.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
+
+			comboBox3.DataSource = DB.retrieveCinemaNamesByOwner(username);
+
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
@@ -82,7 +84,6 @@ namespace Beadando_Forms {
 				textBox1.Enabled = true;
 				textBox2.Enabled = true;
 				textBox3.Enabled = true;
-				textBox4.Enabled = true;
 
 				comboBox3.DataSource = DB.retrieveCinemaNamesByOwner(username);
 
@@ -102,7 +103,6 @@ namespace Beadando_Forms {
 				textBox1.Enabled = true;
 				textBox2.Enabled = true;
 				textBox3.Enabled = true;
-				textBox4.Enabled = true;
 				button3.Enabled = false;
 			} else{
 				button1.Enabled = false;
@@ -111,7 +111,6 @@ namespace Beadando_Forms {
 				textBox1.Enabled = false;
 				textBox2.Enabled = false;
 				textBox3.Enabled = false;
-				textBox4.Enabled = false;
 				button3.Enabled = true;
 			}
 		}

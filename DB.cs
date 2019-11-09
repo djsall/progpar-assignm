@@ -1,7 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Beadando_Forms {
@@ -12,18 +13,18 @@ namespace Beadando_Forms {
 
 		static DB() {
 			connection = new SQLiteConnection("Data Source=" + DatabasePath + "; version=3;");
-			if(!File.Exists(DatabasePath)){
+			if (!File.Exists(DatabasePath)) {
 				SQLiteConnection.CreateFile(DatabasePath);
 				connection.Open();
 				string[] createTablesCommand = {  "create table 'Varosok' ( 'Megye' VARCHAR, 'IrszVarKer' VARCHAR )",
-																					"create table 'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR, 'Nev' VARCHAR, 'Tulaj_Nev' VARCHAR )",
+																					"create table 'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'Megye' VARCHAR, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR, 'Nev' VARCHAR, 'Tulaj_Nev' VARCHAR, 'Datum' VARCHAR )",
 																					"create table 'Tulaj' ( 'Felhasznalo' VARCHAR, 'Jelszo' VARCHAR )",
 																					"create table 'Kapcsolat' ( 'Mozi_ID' INTEGER PRIMARY KEY, 'Filmek_Vetitesi_het' VARCHAR )",
 																					"create table 'Vetitesek' ( 'Vetitesi_datum' VARCHAR, 'Vetitesi_ido' VARCHAR, 'F_cim' VARCHAR )",
 																					"create table 'Filmek' ( 'F_Cim' VARCHAR, 'Mufaj' VARCHAR, 'Hossz' INTEGER, 'Korhatar' INTEGER, 'Vetitesi_het' INTEGER )",
 																					"create table 'Foszereplo' ('Szineszek' VARCHAR, 'F_Cim' VARCHAR)",
 																					"insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('Zoli', 'jelszo')",
-																					"insert into 'Mozi' ('ID', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev') values ('0', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli')"};
+																					"insert into 'Mozi' ('ID', 'Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Datum') values ('0', 'Bács-Kiskun', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli', '"+DateTime.Now+"')"};
 
 				foreach (string item in createTablesCommand) {
 					SQLiteCommand prepDb = new SQLiteCommand(item, connection);
@@ -32,16 +33,26 @@ namespace Beadando_Forms {
 				connection.Close();
 			}
 		}
+
 		public static void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
 			//mozit menti el, ha nem létezik még
-			bool existsAlready = false; //ennek figyelembe kéne vennie a címet és a mozi nevét is
+			int count = 0;
+			connection.Open();
+			using (SQLiteCommand command = connection.CreateCommand()) {
+				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + cinemaName + "'";
+				command.CommandType = CommandType.Text;
+				SQLiteDataReader r = command.ExecuteReader();
+				while (r.Read()) count++;
+			}
 
-			//SQLiteCommand command = new SQLiteCommand(connection);
-
-			if (!existsAlready) {
-				//mehet az adatbázisba
+			if (count == 0) {
+				string command = "insert into 'Mozi' ('Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Datum') values ('" + county + "', '" + city + "','" + street + "', '" + houseNumber + "', '" + cinemaName + "', '" + maintainerName + "', '" + creationTime + "')";
+				SQLiteCommand insert = new SQLiteCommand(command, connection);
+				insert.ExecuteNonQuery();
 			} else
-				MessageBox.Show("Már létezik ez a mozi az adatbázisban!");
+				MessageBox.Show("Már létezik " + cinemaName + " nevű mozi az adatbázisban!");
+
+			connection.Close();
 		}
 
 		public static bool Login(string username, string password) {
@@ -51,7 +62,7 @@ namespace Beadando_Forms {
 
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT * FROM 'Tulaj' WHERE 'Tulaj'.'Felhasznalo'='" + username + "' AND 'Tulaj'.'Jelszo'='" + password + "'";
-				command.CommandType = System.Data.CommandType.Text;
+				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
 				while (r.Read()) count++;
 			};
@@ -59,7 +70,7 @@ namespace Beadando_Forms {
 			if (count == 1) {
 				connection.Close();
 				return true;
-			} else{
+			} else {
 				connection.Close();
 				return false;
 			}
@@ -78,9 +89,9 @@ namespace Beadando_Forms {
 		public static List<string> retrieveCinemaNamesByOwner(string ownerName) {
 			List<string> result = new List<string>();
 			result.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
-			
+
 			connection.Open();
-			using (SQLiteCommand command = connection.CreateCommand()){
+			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'Tulaj_Nev'='" + ownerName + "'";
 				command.CommandType = System.Data.CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
@@ -97,7 +108,7 @@ namespace Beadando_Forms {
 			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
 
 			connection.Open();
-			using (SQLiteCommand command = connection.CreateCommand()){
+			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'IrszVarKer'='" + location + "'";
 				command.CommandType = System.Data.CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
@@ -169,7 +180,8 @@ namespace Beadando_Forms {
 			} else
 				return true;
 		}
-		public static bool selectUser(string username){
+
+		public static bool selectUser(string username) {
 			return false;
 		}
 
