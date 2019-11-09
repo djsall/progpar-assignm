@@ -54,6 +54,42 @@ namespace Beadando_Forms {
 
 			connection.Close();
 		}
+		public static bool selectUser(string username) {
+			connection.Open();
+			int count = 0;
+
+			using (SQLiteCommand command = connection.CreateCommand()) {
+				command.CommandText = "SELECT * FROM 'Tulaj' WHERE 'Tulaj'.'Felhasznalo'='" + username + "'";
+				command.CommandType = CommandType.Text;
+				SQLiteDataReader r = command.ExecuteReader();
+				while (r.Read()) count++;
+			};
+
+			if (count == 0) {
+				connection.Close();
+				return true;
+			} else {
+				connection.Close();
+				return false;
+			}
+		}
+
+		public static bool registerAdmin(string username, string password) {
+			if (selectUser(username)) {
+				connection.Open();
+
+				string command = "insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('" + username + "', '" + password + "')";
+				SQLiteCommand insert = new SQLiteCommand(command, connection);
+				insert.ExecuteNonQuery();
+
+				connection.Close();
+
+				return true;
+
+			} else
+				MessageBox.Show("Ez a név már foglalt.\nPróbáljon meg belépni, vagy vegye fel a kapcsolatot az adminisztrátorral.");
+				return false;
+		}
 
 		public static bool Login(string username, string password) {
 			//adatbázisból kihozza hogy van e password és username kombó ami megfelelő
@@ -93,7 +129,7 @@ namespace Beadando_Forms {
 			connection.Open();
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'Tulaj_Nev'='" + ownerName + "'";
-				command.CommandType = System.Data.CommandType.Text;
+				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
 				while (r.Read())
 					result.Add(Convert.ToString(r[0]));
@@ -110,7 +146,7 @@ namespace Beadando_Forms {
 			connection.Open();
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'IrszVarKer'='" + location + "'";
-				command.CommandType = System.Data.CommandType.Text;
+				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
 				while (r.Read())
 					result.Add(Convert.ToString(r[0]));
@@ -173,17 +209,7 @@ namespace Beadando_Forms {
 			return result;
 		}
 
-		public static bool registerAdmin(string username, string password) {
-			if (selectUser(username)) {
-				MessageBox.Show("Ez a név már foglalt.\nPróbáljon meg belépni, vagy vegye fel a kapcsolatot az adminisztrátorral.");
-				return false;
-			} else
-				return true;
-		}
 
-		public static bool selectUser(string username) {
-			return false;
-		}
 
 		public static void saveMovies(int week, string[] movies, string selectedCinemaName) {
 			MovieHandler mov = new MovieHandler();
