@@ -23,6 +23,7 @@ namespace Beadando_Forms {
 					"create table 'Vetitesek' ( 'Vetitesi_datum' VARCHAR, 'Vetitesi_ido' VARCHAR, 'F_cim' VARCHAR )",
 					"create table 'Filmek' ( 'F_Cim' VARCHAR, 'Mufaj' VARCHAR, 'Hossz' INTEGER, 'Korhatar' INTEGER, 'Vetitesi_het' INTEGER, 'Mozi_ID' INTEGER, 'Vetitesi_Nap' VARCHAR, 'Vetitesi_Ido' VARCHAR)",
 					"create table 'Foszereplo' ('Szineszek' VARCHAR, 'F_Cim' VARCHAR)",
+
 					"insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('Zoli', 'jelszo')",
 					"insert into 'Mozi' ('ID', 'Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Datum') values ('0', 'Bács-Kiskun', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli', '" + DateTime.Now + "')",
 					"insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido') values ('Melegekkel Suttogó', 'akció', '120', '12', '8', '0', '2019-08-20', '13:30')"
@@ -188,6 +189,12 @@ namespace Beadando_Forms {
 
 		public static movie searchForMovie(movie mov) {
 			//minden megadott paraméterekből(genres, vetítési idő és dátum, kiválasztott mozi neve) összerak egy teljes movie struktúrát és azt adja vissza.
+			string title = mov.title,
+						 screeningDate = mov.ScreeningDate,
+						 screeningTime = mov.ScreeningTime,
+						 selectedCinema = mov.selectedCinemaName;
+
+			
 			movie result = new movie {
 				title = mov.title,
 				genres = mov.genres,
