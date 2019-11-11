@@ -28,7 +28,7 @@ namespace Beadando_Forms {
 		}
 
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
-			string cinemaName = comboBox2.SelectedItem.ToString();
+			string cinemaName = comboBox2.Text;
 			comboBox1.DataSource = DB.retrieveMovieNamesByCinemaName(cinemaName);
 			comboBox1.Enabled = false;
 			if (comboBox3.Text != "")

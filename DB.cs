@@ -8,6 +8,7 @@ using System.Windows.Forms;
 namespace Beadando_Forms {
 
 	static internal class DB {
+		private static LocationsHandler loc = new LocationsHandler();
 		private static SQLiteConnection connection;
 		public const string DatabasePath = "dataBase.sqlite";
 
@@ -27,7 +28,7 @@ namespace Beadando_Forms {
 					"create table 'Filmek' ( 'F_Cim' VARCHAR, 'Mufaj' VARCHAR, 'Hossz' INTEGER, 'Korhatar' INTEGER, 'Vetitesi_het' INTEGER, 'Mozi_ID' INTEGER, 'Vetitesi_Nap' VARCHAR, 'Vetitesi_Ido' VARCHAR, 'Rendezo' VARCHAR, 'Foszereplo' VARCHAR)",
 
 					"insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('Zoli', 'jelszo')",
-					"insert into 'Mozi' ('ID', 'Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Datum') values ('0', 'Bács-Kiskun', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli', '" + DateTime.Now + "')",
+					"insert into 'Mozi' ('ID', 'Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Letrehozasi_het') values ('0', 'Bács-Kiskun', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli', '" + loc.weekOfTheYear() + "')",
 					"insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('Melegekkel Suttogó', 'akció', '120', '12', '8', '0', '2019-08-20', '13:30', 'Nagy Zsiga', 'Brad Pitt')",
 				};
 
@@ -181,11 +182,11 @@ namespace Beadando_Forms {
 
 			connection.Open();
 			using (SQLiteCommand command = connection.CreateCommand()) {
-				command.CommandText = "SELECT Letrehozasi_het FROM 'Mozi' WHERE 'Mozi'.'Nev'='"+mt.selectedCinemaName+"'";
+				command.CommandText = "SELECT Letrehozasi_het FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
 				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
 
-				if( currWeek - int.Parse(r[0].ToString()) < 7)
+				if (currWeek - int.Parse(r[0].ToString()) < 7)
 					isRightWeek = true;
 			}
 			using (SQLiteCommand command = connection.CreateCommand()) {
@@ -194,7 +195,7 @@ namespace Beadando_Forms {
 				SQLiteDataReader r = command.ExecuteReader();
 				cinemaId = int.Parse(r[0].ToString());
 			}
-				connection.Close();
+			connection.Close();
 
 			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 			if (isRightWeek) {
@@ -203,14 +204,13 @@ namespace Beadando_Forms {
 				for (int i = 1; i < mt.genres.Length; i++) {
 					genres += "/" + mt.genres[i];
 				}
-				string commandString = "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('"+ mt.title+"', '"+genres+"', '"+mt.playtime+"', '"+mt.ageRestriction+"', '"+currWeek+"', '"+cinemaId+"', '"+mt.ScreeningDate+"', '"+mt.ScreeningTime+"', '"+mt.producer+"', '"+mt.starring+"')";
+				string commandString = "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('" + mt.title + "', '" + genres + "', '" + mt.playtime + "', '" + mt.ageRestriction + "', '" + currWeek + "', '" + cinemaId + "', '" + mt.ScreeningDate + "', '" + mt.ScreeningTime + "', '" + mt.producer + "', '" + mt.starring + "')";
 				SQLiteCommand command = new SQLiteCommand(commandString, connection);
 				command.ExecuteNonQuery();
 
 				connection.Close();
-			} else 
+			} else
 				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
-			
 		}
 
 		/// <summary>
@@ -343,6 +343,12 @@ namespace Beadando_Forms {
 				else
 					MessageBox.Show("Számérték helyén más található a feldolgozandó fájlban. Kérem javítsa!");
 			}
+		}
+		/// <summary>
+		/// Deletes a given cinema
+		/// </summary>
+		public void deleteCinema(string cinemaName) {
+			
 		}
 	}
 }
