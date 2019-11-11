@@ -20,6 +20,8 @@ namespace Beadando_Forms {
 			textBox1.Enabled = false;
 			textBox2.Enabled = false;
 			textBox3.Enabled = false;
+
+			FormClosing += onClose;
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
@@ -42,6 +44,10 @@ namespace Beadando_Forms {
 		private void button2_Click(object sender, EventArgs e) {
 			Startup myForm = (Startup)Application.OpenForms["Startup"];
 			this.Close();
+			myForm.Show();
+		}
+		private void onClose(object sender, EventArgs e){
+			Startup myForm = (Startup)Application.OpenForms["Startup"];
 			myForm.Show();
 		}
 

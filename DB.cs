@@ -77,7 +77,6 @@ namespace Beadando_Forms {
 				return false;
 			}
 		}
-
 		public static bool registerAdmin(string username, string password) {
 			if (selectUser(username)) {
 				connection.Open();
@@ -93,9 +92,10 @@ namespace Beadando_Forms {
 				MessageBox.Show("Ez a név már foglalt.\nPróbáljon meg belépni, vagy vegye fel a kapcsolatot az adminisztrátorral.");
 			return false;
 		}
-
+		/// <summary>
+		/// Returns true if the username and password combination is found in the database
+		/// </summary>
 		public static bool Login(string username, string password) {
-			//adatbázisból kihozza hogy van e password és username kombó ami megfelelő
 			connection.Open();
 			int count = 0;
 
@@ -114,10 +114,12 @@ namespace Beadando_Forms {
 				return false;
 			}
 		}
-
+		/// <summary>
+		/// Returns the names of cinema's owned by a specific person in a list format.
+		/// </summary>
 		public static List<string> retrieveCinemaNamesByOwner(string ownerName) {
 			List<string> result = new List<string>();
-			result.Insert(0, ""); //ez a sor is kell, különben nem működik a gui, nehogy ki akard szedni
+			result.Insert(0, "");
 
 			connection.Open();
 			using (SQLiteCommand command = connection.CreateCommand()) {
@@ -130,11 +132,12 @@ namespace Beadando_Forms {
 			connection.Close();
 			return result;
 		}
-
+		/// <summary>
+		/// Returns the names of cinema's in a specific location (based on IrszVarKer's values) in a list format.
+		/// </summary>
 		public static List<string> retrieveCinemaNamesByLocation(string location) {
-			//a helység alapján keresi meg az összes létező mozit abban a helységben, majd listába foglalja
 			List<string> result = new List<string>();
-			result.Insert(0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
+			result.Insert(0, "");
 
 			connection.Open();
 			using (SQLiteCommand command = connection.CreateCommand()) {
@@ -147,7 +150,9 @@ namespace Beadando_Forms {
 			connection.Close();
 			return result;
 		}
-
+		/// <summary>
+		/// Sends a movie struct into the database.
+		/// </summary>
 		public static void pushToDb(movie mt) {
 			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 			bool isRightWeek = true;
@@ -157,7 +162,9 @@ namespace Beadando_Forms {
 			} else
 				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
 		}
-
+		/// <summary>
+		/// Returns a list of movies played at a specific cinema
+		/// </summary>
 		public static List<string> retrieveMovieNamesByCinemaName(string cinemaName) {
 			//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
 			//itt hagytam példának és tesztelésnek az alábbi listát
@@ -166,12 +173,12 @@ namespace Beadando_Forms {
 
 			return result;
 		}
-
+		/// <summary>
+		/// Returns a list of movies based on a given genre.
+		/// </summary>
 		public static List<string> retrieveMoviesByGenres(string genre) {
-			List<string> result = new List<string>() { "A Film címe, Debrecen, 2019-11-06, 13:35" };
+			List<string> result = new List<string>();
 
-			//Movies-ban van egy genre lista, abból választ. Ez alapján ment az adatbázisba is a program.
-			//A kiválaszott genre alapján kér egy listát a filmekről, a városról és a vetítés dátumáról és idejéről kombózva, ahogy a példán látható
 			connection.Open();
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT F_Cim, IrszVarKer, Vetitesi_Nap, Vetitesi_Ido FROM 'Filmek' INNER JOIN 'Mozi' ON 'Filmek'.'Mozi_ID'='Mozi'.'ID' WHERE 'Filmek'.'Mufaj'='" + genre + "'";
