@@ -347,7 +347,7 @@ namespace Beadando_Forms {
 		/// <summary>
 		/// Deletes a given cinema
 		/// </summary>
-		public void deleteCinema(string cinemaName) {
+		public static void deleteCinema(string cinemaName) {
 			
 		}
 	}

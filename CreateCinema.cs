@@ -122,7 +122,8 @@ namespace Beadando_Forms {
 		}
 
 		private void button6_Click(object sender, EventArgs e) {
-
+			if(comboBox3.Text != "")
+				DB.deleteCinema(comboBox3.Text);
 		}
 	}
 }
