@@ -104,6 +104,8 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.textBox2);
 			this.Controls.Add(this.textBox1);
+			this.MaximumSize = new System.Drawing.Size(223, 215);
+			this.MinimumSize = new System.Drawing.Size(223, 215);
 			this.Name = "AdminRegister";
 			this.Text = "AdminRegister";
 			this.ResumeLayout(false);

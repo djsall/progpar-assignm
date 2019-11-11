@@ -173,6 +173,8 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.comboBox2);
 			this.Controls.Add(this.button1);
+			this.MaximumSize = new System.Drawing.Size(809, 253);
+			this.MinimumSize = new System.Drawing.Size(809, 253);
 			this.Name = "Startup";
 			this.Text = "Mozi-Manager";
 			this.Load += new System.EventHandler(this.Form1_Load);

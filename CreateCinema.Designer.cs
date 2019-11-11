@@ -45,6 +45,7 @@
 			this.label9 = new System.Windows.Forms.Label();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.textBox6 = new System.Windows.Forms.TextBox();
+			this.button6 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -234,11 +235,22 @@
 			this.textBox6.Size = new System.Drawing.Size(182, 20);
 			this.textBox6.TabIndex = 19;
 			// 
+			// button6
+			// 
+			this.button6.Location = new System.Drawing.Point(571, 158);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(100, 23);
+			this.button6.TabIndex = 25;
+			this.button6.Text = "Mozi törlése";
+			this.button6.UseVisualStyleBackColor = true;
+			this.button6.Click += new System.EventHandler(this.button6_Click);
+			// 
 			// CreateCinema
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(760, 195);
+			this.Controls.Add(this.button6);
 			this.Controls.Add(this.button4);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.label8);
@@ -260,6 +272,8 @@
 			this.Controls.Add(this.comboBox2);
 			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.label1);
+			this.MaximumSize = new System.Drawing.Size(776, 234);
+			this.MinimumSize = new System.Drawing.Size(776, 234);
 			this.Name = "CreateCinema";
 			this.Text = "Mozi Létrehozása";
 			this.ResumeLayout(false);
@@ -291,5 +305,6 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.TextBox textBox5;
 		private System.Windows.Forms.TextBox textBox6;
+		private System.Windows.Forms.Button button6;
 	}
 }
