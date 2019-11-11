@@ -10,7 +10,9 @@ namespace Beadando_Forms {
 	static internal class DB {
 		private static SQLiteConnection connection;
 		public const string DatabasePath = "dataBase.sqlite";
-
+		/// <summary>
+		/// Populate the database with default entries if it doesn't exist yet.
+		/// </summary>
 		static DB () {
 			connection = new SQLiteConnection ("Data Source=" + DatabasePath + "; version=3;");
 			if (!File.Exists (DatabasePath)) {
@@ -35,7 +37,9 @@ namespace Beadando_Forms {
 				connection.Close ();
 			}
 		}
-
+		/// <summary>
+		/// Creates a cinema based on the arguments. It checks if the name already exists.
+		/// </summary>
 		public static void createCinema (string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
 			//mozit menti el, ha nem létezik még
 			int count = 0;
@@ -56,7 +60,10 @@ namespace Beadando_Forms {
 
 			connection.Close ();
 		}
-
+		/// <summary>
+		/// Checks if an username is present in the database
+		/// </summary>
+		/// <returns>true if present, false if not present</returns>
 		public static bool selectUser (string username) {
 			connection.Open ();
 			int count = 0;
@@ -76,6 +83,10 @@ namespace Beadando_Forms {
 				return false;
 			}
 		}
+		/// <summary>
+		/// Create an admin account. Checks if it already exists.
+		/// </summary>
+		/// <returns>True if success, false if not.</returns>
 		public static bool registerAdmin (string username, string password) {
 			if (selectUser (username)) {
 				connection.Open ();
@@ -165,10 +176,19 @@ namespace Beadando_Forms {
 		/// Returns a list of movies played at a specific cinema
 		/// </summary>
 		public static List<string> retrieveMovieNamesByCinemaName (string cinemaName) {
-			//filmcímeket pakol listába a mozi neve alapján a keresés az aktuális héten játszott filmekre
-			//itt hagytam példának és tesztelésnek az alábbi listát
-			List<string> result = new List<string> () { "Film címe, műfaja/műfajai, 2019-11-06, 13:35" };
-			result.Insert (0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
+			List<string> result = new List<string> ();
+
+			connection.Open();
+			using (SQLiteCommand command = connection.CreateCommand()) {
+				command.CommandText = "SELECT F_Cim, Mufaj, Vetitesi_Nap, Vetitesi_Ido FROM 'Filmek' INNER JOIN 'Mozi' ON 'Filmek'.'Mozi_ID'='Mozi'.'ID' WHERE 'Mozi'.'Nev'='" + cinemaName + "'";
+				command.CommandType = CommandType.Text;
+				SQLiteDataReader r = command.ExecuteReader();
+				while (r.Read())
+					result.Add(r[0].ToString() + ", " + r[1].ToString() + ", " + r[2].ToString() + ", " + r[3].ToString());
+			}
+			connection.Close();
+
+			result.Insert (0, "");
 
 			return result;
 		}
@@ -188,13 +208,16 @@ namespace Beadando_Forms {
 			}
 			connection.Close ();
 
-			result.Insert (0, ""); // itt is szükséges a gui miatt a 0. indexen az üres sor
-			result.Sort (); //kell, mert abc sorrendet kér a feladat
+			result.Insert (0, "");
+			result.Sort (); 
 			return result;
 		}
-
+		/// <summary>
+		/// Fetches movie data based given data
+		/// </summary>
+		/// <returns>Movie struct</returns>
 		public static movie searchForMovie (movie mov) {
-			//minden megadott paraméterekből(genres, vetítési idő és dátum, kiválasztott mozi neve) összerak egy teljes movie struktúrát és azt adja vissza.
+			connection.Open();
 
 			movie result = new movie {
 				title = mov.title,
@@ -214,26 +237,39 @@ namespace Beadando_Forms {
 				result.producer = r[3].ToString();
 
 			}
+			connection.Close();
 			return result;
 		}
-
+		/// <summary>
+		/// Fetches movie data based given data
+		/// </summary>
+		/// <returns>Movie struct</returns>
 		public static movie searchForMovie2 (movie mov, string location) {
-			//megadott paraméterekből(cím, dátum, óra) és a vetítés helyszínéből visszaadja kiegészítve a movie struktúrát
+			connection.Open();
 			movie result = new movie {
 				ScreeningDate = mov.ScreeningDate,
 					ScreeningTime = mov.ScreeningTime,
 					title = mov.title,
-
-					genres = new string[] { "Akció", "Vígjáték " },
-					ageRestriction = 14,
-					playtime = 120,
-					selectedCinemaName = "Homono Mozi és Bár",
-					starring = "Nicholas Ketrec",
-					producer = "Cristopher Nolan"
 			};
+			using (SQLiteCommand command = connection.CreateCommand()) {
+				command.CommandText = "SELECT Mufaj, Korhatar, Hossz, Nev, Foszereplo, Rendezo FROM 'Filmek' INNER JOIN 'Mozi' ON 'Mozi'.'ID'='Filmek'.'Mozi_ID' WHERE 'Filmek'.'F_Cim'='" + mov.title + "' AND 'Filmek'.'Vetitesi_het'='" + mov.ScreeningDate + "' AND 'Filmek'.'Vetitesi_Nap'='" + mov.ScreeningTime + "' AND 'Mozi'.'IrszVarKer'='"+ location + "'";
+				command.CommandType = CommandType.Text;
+				SQLiteDataReader r = command.ExecuteReader();
+
+				result.genres = r[0].ToString().Split('/');
+				result.ageRestriction = int.Parse(r[1].ToString());
+				result.playtime = int.Parse(r[2].ToString());
+				result.selectedCinemaName = r[3].ToString();
+				result.starring = r[4].ToString();
+				result.producer = r[5].ToString();
+
+			}
+			connection.Close();
 			return result;
 		}
-
+		/// <summary>
+		/// Splits up movies for saving to database
+		/// </summary>
 		public static void saveMovies (int week, string[] movies, string selectedCinemaName) {
 			MovieHandler mov = new MovieHandler ();
 
