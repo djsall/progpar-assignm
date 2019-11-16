@@ -27,6 +27,12 @@ namespace Beadando_Forms {
 		private void button1_Click(object sender, EventArgs e) {
 			string county, city, street, cinemaName, maintainerName, houseNumber;
 
+            if (string.IsNullOrWhiteSpace(textBox3.Text))
+            {
+                MessageBox.Show("Kérem nevezze el a mozit!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
 			county = comboBox1.SelectedValue.ToString();
 			city = comboBox2.SelectedValue.ToString();
 			street = textBox1.Text;
