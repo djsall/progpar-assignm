@@ -40,7 +40,7 @@
             this.RegisterButton.TabIndex = 10;
             this.RegisterButton.Text = "Regisztráció!";
             this.RegisterButton.UseVisualStyleBackColor = true;
-            this.RegisterButton.Click += new System.EventHandler(this.button2_Click);
+            this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // label2
             // 

@@ -46,7 +46,7 @@
             this.AdminButton.TabIndex = 0;
             this.AdminButton.Text = "Adminisztrátor";
             this.AdminButton.UseVisualStyleBackColor = true;
-            this.AdminButton.Click += new System.EventHandler(this.button1_Click);
+            this.AdminButton.Click += new System.EventHandler(this.AdminButton_Click);
             // 
             // label2
             // 
@@ -64,7 +64,7 @@
             this.CityDropDown.Name = "CityDropDown";
             this.CityDropDown.Size = new System.Drawing.Size(175, 21);
             this.CityDropDown.TabIndex = 5;
-            this.CityDropDown.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.CityDropDown.SelectedIndexChanged += new System.EventHandler(this.CityDropDown_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -82,7 +82,7 @@
             this.CinemaDropDown.Name = "CinemaDropDown";
             this.CinemaDropDown.Size = new System.Drawing.Size(226, 21);
             this.CinemaDropDown.TabIndex = 19;
-            this.CinemaDropDown.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.CinemaDropDown.SelectedIndexChanged += new System.EventHandler(this.CinemaDropDown_SelectedIndexChanged);
             // 
             // MovieDropDown
             // 
@@ -91,7 +91,7 @@
             this.MovieDropDown.Name = "MovieDropDown";
             this.MovieDropDown.Size = new System.Drawing.Size(363, 21);
             this.MovieDropDown.TabIndex = 21;
-            this.MovieDropDown.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.MovieDropDown.SelectedIndexChanged += new System.EventHandler(this.MovieDropDown_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -118,7 +118,7 @@
             this.GenreDropDown.Name = "GenreDropDown";
             this.GenreDropDown.Size = new System.Drawing.Size(175, 21);
             this.GenreDropDown.TabIndex = 23;
-            this.GenreDropDown.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            this.GenreDropDown.SelectedIndexChanged += new System.EventHandler(this.GenreDropDown_SelectedIndexChanged);
             // 
             // MovieInfoDropDown
             // 
@@ -127,7 +127,7 @@
             this.MovieInfoDropDown.Name = "MovieInfoDropDown";
             this.MovieInfoDropDown.Size = new System.Drawing.Size(595, 21);
             this.MovieInfoDropDown.TabIndex = 25;
-            this.MovieInfoDropDown.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
+            this.MovieInfoDropDown.SelectedIndexChanged += new System.EventHandler(this.MovieInfoDropDown_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -177,7 +177,6 @@
             this.MinimumSize = new System.Drawing.Size(809, 253);
             this.Name = "Startup";
             this.Text = "Mozi-Manager";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -138,7 +138,7 @@
             this.CreateCinemaButton.TabIndex = 14;
             this.CreateCinemaButton.Text = "Létrehozás";
             this.CreateCinemaButton.UseVisualStyleBackColor = true;
-            this.CreateCinemaButton.Click += new System.EventHandler(this.button1_Click);
+            this.CreateCinemaButton.Click += new System.EventHandler(this.CreateCinemaButton_Click);
             // 
             // BackButton
             // 
@@ -148,7 +148,7 @@
             this.BackButton.TabIndex = 15;
             this.BackButton.Text = "Vissza";
             this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.button2_Click);
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // ImportButton
             // 
@@ -158,7 +158,7 @@
             this.ImportButton.TabIndex = 16;
             this.ImportButton.Text = "Műsor tallózása";
             this.ImportButton.UseVisualStyleBackColor = true;
-            this.ImportButton.Click += new System.EventHandler(this.button3_Click);
+            this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
             // 
             // openFileDialog1
             // 
@@ -171,7 +171,7 @@
             this.CinemaDropDown.Name = "CinemaDropDown";
             this.CinemaDropDown.Size = new System.Drawing.Size(226, 21);
             this.CinemaDropDown.TabIndex = 17;
-            this.CinemaDropDown.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.CinemaDropDown.SelectedIndexChanged += new System.EventHandler(this.CinemaDropDown_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -190,7 +190,7 @@
             this.RegisterButton.TabIndex = 24;
             this.RegisterButton.Text = "Regisztráció!";
             this.RegisterButton.UseVisualStyleBackColor = true;
-            this.RegisterButton.Click += new System.EventHandler(this.button4_Click);
+            this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // LoginButton
             // 
@@ -200,7 +200,7 @@
             this.LoginButton.TabIndex = 23;
             this.LoginButton.Text = "Belépés!";
             this.LoginButton.UseVisualStyleBackColor = true;
-            this.LoginButton.Click += new System.EventHandler(this.button5_Click);
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // label8
             // 
@@ -243,7 +243,7 @@
             this.DeleteCinemaButton.TabIndex = 25;
             this.DeleteCinemaButton.Text = "Mozi törlése";
             this.DeleteCinemaButton.UseVisualStyleBackColor = true;
-            this.DeleteCinemaButton.Click += new System.EventHandler(this.button6_Click);
+            this.DeleteCinemaButton.Click += new System.EventHandler(this.DeleteCinemaButton_Click);
             // 
             // CreateCinema
             // 

@@ -4,8 +4,10 @@ using System.IO;
 
 namespace Beadando_Forms {
 	public partial class CreateCinema : Form {
+
 		string username = "";
-		public CreateCinema() {
+		
+        public CreateCinema() {
 			InitializeComponent();
 
 			LocationsHandler locations = new LocationsHandler();
@@ -21,10 +23,10 @@ namespace Beadando_Forms {
 			HouseNumberDropDown.Enabled = false;
 			CinemaNameTextBox.Enabled = false;
 
-			FormClosing += onClose;
+			FormClosing += OnClose;
 		}
 
-		private void button1_Click(object sender, EventArgs e) {
+		private void CreateCinemaButton_Click(object sender, EventArgs e) {
 			string county, city, street, cinemaName, maintainerName, houseNumber;
 
             if (string.IsNullOrWhiteSpace(CinemaNameTextBox.Text))
@@ -47,17 +49,18 @@ namespace Beadando_Forms {
 
 		}
 
-		private void button2_Click(object sender, EventArgs e) {
+		private void BackButton_Click(object sender, EventArgs e) {
 			Startup myForm = (Startup)Application.OpenForms["Startup"];
 			this.Close();
 			myForm.Show();
 		}
-		private void onClose(object sender, EventArgs e){
+
+		private void OnClose(object sender, EventArgs e){
 			Startup myForm = (Startup)Application.OpenForms["Startup"];
 			myForm.Show();
 		}
 
-		private void button3_Click(object sender, EventArgs e) {
+		private void ImportButton_Click(object sender, EventArgs e) {
 			OpenFileDialog openFileDialog1 = new OpenFileDialog();
 			openFileDialog1.ShowDialog();
 			openFileDialog1.CheckFileExists = true;
@@ -76,7 +79,7 @@ namespace Beadando_Forms {
 			DB.saveMovies(week, tempFileContents, CinemaDropDown.SelectedItem.ToString());
 		}
 
-		private void button5_Click(object sender, EventArgs e) {
+		private void LoginButton_Click(object sender, EventArgs e) {
 			string uname = UsernameTextBox.Text;
 			string password = textBox5.Text;
 
@@ -103,11 +106,12 @@ namespace Beadando_Forms {
 				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!", "Hiba",MessageBoxButtons.OK,MessageBoxIcon.Error);
 		}
 
-		private void button4_Click(object sender, EventArgs e) {
+		private void RegisterButton_Click(object sender, EventArgs e) {
 			AdminRegister register = new AdminRegister();
 			register.Show();
-		}		
-		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
+		}
+
+		private void CinemaDropDown_SelectedIndexChanged(object sender, EventArgs e) {
 			if (CinemaDropDown.SelectedItem.ToString() == "") {
 				CreateCinemaButton.Enabled = true;
 				CountyDropDown.Enabled = true;
@@ -127,7 +131,7 @@ namespace Beadando_Forms {
 			}
 		}
 
-		private void button6_Click(object sender, EventArgs e) {
+		private void DeleteCinemaButton_Click(object sender, EventArgs e) {
 			if(CinemaDropDown.Text != "")
 				DB.deleteCinema(CinemaDropDown.Text);
 		}

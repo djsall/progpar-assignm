@@ -7,7 +7,7 @@ namespace Beadando_Forms {
 			InitializeComponent();
         }
 
-		private void button2_Click(object sender, EventArgs e) {
+		private void RegisterButton_Click(object sender, EventArgs e) {
 			string username = UsernameTextBox.Text,
 						 password = PasswordTextBox.Text,
 						 cPassword = PasswordConfirmTextBox.Text;

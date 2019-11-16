@@ -3,7 +3,8 @@ using System.Windows.Forms;
 
 namespace Beadando_Forms {
 	public partial class Startup : Form {
-		public Startup() {
+		
+        public Startup() {
 			InitializeComponent();
 
 			LocationsHandler locations = new LocationsHandler();
@@ -13,21 +14,19 @@ namespace Beadando_Forms {
 			GenreDropDown.DataSource = movie.movieTypes;
 		}
 
-		private void Form1_Load(object sender, EventArgs e) {
-		}
-
-		private void button1_Click(object sender, EventArgs e) {
+		private void AdminButton_Click(object sender, EventArgs e) {
 			CreateCinema create = new CreateCinema();
 			this.Hide();
 			create.Show();
 		}
 
-		private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
+		private void CityDropDown_SelectedIndexChanged(object sender, EventArgs e) {
 			string selectedLocation = CityDropDown.Text;
 			CinemaDropDown.DataSource = DB.retrieveCinemaNamesByLocation(selectedLocation);
 		}
 
-		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
+
+		private void CinemaDropDown_SelectedIndexChanged(object sender, EventArgs e) {
 			string cinemaName = CityDropDown.Text;
 			MovieDropDown.DataSource = DB.retrieveMovieNamesByCinemaName(cinemaName);
 			MovieDropDown.Enabled = false;
@@ -42,12 +41,12 @@ namespace Beadando_Forms {
 			}
 		}
 
-		private void comboBox4_SelectedIndexChanged(object sender, EventArgs e) {
+		private void GenreDropDown_SelectedIndexChanged(object sender, EventArgs e) {
 			string genre = GenreDropDown.SelectedItem.ToString();
 			MovieInfoDropDown.DataSource = DB.retrieveMoviesByGenres(genre);
 		}
 
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
+		private void MovieDropDown_SelectedIndexChanged(object sender, EventArgs e) {
 			MovieDetailsBox.ReadOnly = true;
 
 			if (MovieDropDown.Text != "" && CinemaDropDown.Text != "") {
@@ -69,7 +68,7 @@ namespace Beadando_Forms {
 			}
 		}
 
-		private void comboBox5_SelectedIndexChanged(object sender, EventArgs e) {
+		private void MovieInfoDropDown_SelectedIndexChanged(object sender, EventArgs e) {
 			//A Film címe, Debrecen, 2019-11-06, 13:35
 			if (GenreDropDown.Text != "" && MovieInfoDropDown.Text != "") {
 				CinemaDropDown.Enabled = false;
