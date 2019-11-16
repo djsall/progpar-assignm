@@ -1,0 +1,2 @@
+42
+műfajok	sztárok	játékidő	Rendező	cím	vetítés dátuma	vetítés időpontja	korhatár
