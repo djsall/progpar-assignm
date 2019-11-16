@@ -29,7 +29,7 @@ namespace Beadando_Forms {
 
 					"insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('Zoli', 'jelszo')",
 					"insert into 'Mozi' ('ID', 'Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Letrehozasi_het') values ('0', 'Bács-Kiskun', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli', '" + loc.weekOfTheYear() + "')",
-					"insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('Melegekkel Suttogó', 'akció', '120', '12', '8', '0', '2019-08-20', '13:30', 'Nagy Zsiga', 'Brad Pitt')",
+					"insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('Melegekkel Suttogó', 'akció', '120', '12', '8', '0', '2020-08-20', '13:30', 'Nagy Zsiga', 'Brad Pitt')",
 				};
 
 				foreach (string item in createTablesCommand) {
@@ -54,8 +54,10 @@ namespace Beadando_Forms {
 				while (r.Read()) count++;
 			}
 
+            LocationsHandler locH = new LocationsHandler();
+
 			if (count == 0) {
-				string command = "insert into 'Mozi' ('Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Datum') values ('" + county + "', '" + city + "','" + street + "', '" + houseNumber + "', '" + cinemaName + "', '" + maintainerName + "', '" + creationTime + "')";
+				string command = "insert into 'Mozi' ('Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Letrehozasi_het') values ('" + county + "', '" + city + "','" + street + "', '" + houseNumber + "', '" + cinemaName + "', '" + maintainerName + "', '" + locH.weekOfTheYear(creationTime) + "')";
 				SQLiteCommand insert = new SQLiteCommand(command, connection);
 				insert.ExecuteNonQuery();
 			} else

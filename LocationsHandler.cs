@@ -17,5 +17,14 @@ namespace Beadando_Forms {
 			string weekOfYear = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
 			return int.Parse(weekOfYear);
 		}
-	}
+
+        public int weekOfTheYear(DateTime date)
+        {
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            Calendar cal = dfi.Calendar;
+            string weekOfYear = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
+            return int.Parse(weekOfYear);
+        }
+
+    }
 }
