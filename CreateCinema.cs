@@ -10,16 +10,16 @@ namespace Beadando_Forms {
 
 			LocationsHandler locations = new LocationsHandler();
 
-			comboBox1.DataSource = locations.counties;
-			comboBox2.DataSource = locations.cities;
+			CountyDropDown.DataSource = locations.counties;
+			CityDropDown.DataSource = locations.cities;
 
-			button1.Enabled = false;
-			comboBox1.Enabled = false;
-			comboBox2.Enabled = false;
-			comboBox3.Enabled = false;
-			textBox1.Enabled = false;
-			textBox2.Enabled = false;
-			textBox3.Enabled = false;
+			CreateCinemaButton.Enabled = false;
+			CountyDropDown.Enabled = false;
+			CityDropDown.Enabled = false;
+			CinemaDropDown.Enabled = false;
+			StreetDropDown.Enabled = false;
+			HouseNumberDropDown.Enabled = false;
+			CinemaNameTextBox.Enabled = false;
 
 			FormClosing += onClose;
 		}
@@ -27,23 +27,23 @@ namespace Beadando_Forms {
 		private void button1_Click(object sender, EventArgs e) {
 			string county, city, street, cinemaName, maintainerName, houseNumber;
 
-            if (string.IsNullOrWhiteSpace(textBox3.Text))
+            if (string.IsNullOrWhiteSpace(CinemaNameTextBox.Text))
             {
                 MessageBox.Show("Kérem nevezze el a mozit!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-			county = comboBox1.SelectedValue.ToString();
-			city = comboBox2.SelectedValue.ToString();
-			street = textBox1.Text;
-			houseNumber = textBox2.Text;
-			cinemaName = textBox3.Text;
+			county = CountyDropDown.SelectedValue.ToString();
+			city = CityDropDown.SelectedValue.ToString();
+			street = StreetDropDown.Text;
+			houseNumber = HouseNumberDropDown.Text;
+			cinemaName = CinemaNameTextBox.Text;
 			maintainerName = username;
 			DateTime creationTime = DateTime.Now;
 
 			DB.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
 
-			comboBox3.DataSource = DB.retrieveCinemaNamesByOwner(username);
+			CinemaDropDown.DataSource = DB.retrieveCinemaNamesByOwner(username);
 
 		}
 
@@ -73,11 +73,11 @@ namespace Beadando_Forms {
 			for (int i = 1; i < fileContents.Length; i++) {
 				tempFileContents[i - 1] = fileContents[i];
 			}
-			DB.saveMovies(week, tempFileContents, comboBox3.SelectedItem.ToString());
+			DB.saveMovies(week, tempFileContents, CinemaDropDown.SelectedItem.ToString());
 		}
 
 		private void button5_Click(object sender, EventArgs e) {
-			string uname = textBox6.Text;
+			string uname = UsernameTextBox.Text;
 			string password = textBox5.Text;
 
 			bool login = DB.Login(uname, password);
@@ -85,19 +85,19 @@ namespace Beadando_Forms {
 				username = uname;
 
 				textBox5.Enabled = false;
-				textBox6.Enabled = false;
-				button5.Enabled = false;
-				button4.Enabled = false;
+				UsernameTextBox.Enabled = false;
+				LoginButton.Enabled = false;
+				RegisterButton.Enabled = false;
 
-				button1.Enabled = true;
-				comboBox1.Enabled = true;
-				comboBox2.Enabled = true;
-				comboBox3.Enabled = true;
-				textBox1.Enabled = true;
-				textBox2.Enabled = true;
-				textBox3.Enabled = true;
+				CreateCinemaButton.Enabled = true;
+				CountyDropDown.Enabled = true;
+				CityDropDown.Enabled = true;
+				CinemaDropDown.Enabled = true;
+				StreetDropDown.Enabled = true;
+				HouseNumberDropDown.Enabled = true;
+				CinemaNameTextBox.Enabled = true;
 
-				comboBox3.DataSource = DB.retrieveCinemaNamesByOwner(username);
+				CinemaDropDown.DataSource = DB.retrieveCinemaNamesByOwner(username);
 
 			} else
 				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!", "Hiba",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -108,28 +108,28 @@ namespace Beadando_Forms {
 			register.Show();
 		}		
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
-			if (comboBox3.SelectedItem.ToString() == "") {
-				button1.Enabled = true;
-				comboBox1.Enabled = true;
-				comboBox2.Enabled = true;
-				textBox1.Enabled = true;
-				textBox2.Enabled = true;
-				textBox3.Enabled = true;
-				button3.Enabled = false;
+			if (CinemaDropDown.SelectedItem.ToString() == "") {
+				CreateCinemaButton.Enabled = true;
+				CountyDropDown.Enabled = true;
+				CityDropDown.Enabled = true;
+				StreetDropDown.Enabled = true;
+				HouseNumberDropDown.Enabled = true;
+				CinemaNameTextBox.Enabled = true;
+				ImportButton.Enabled = false;
 			} else{
-				button1.Enabled = false;
-				comboBox1.Enabled = false;
-				comboBox2.Enabled = false;
-				textBox1.Enabled = false;
-				textBox2.Enabled = false;
-				textBox3.Enabled = false;
-				button3.Enabled = true;
+				CreateCinemaButton.Enabled = false;
+				CountyDropDown.Enabled = false;
+				CityDropDown.Enabled = false;
+				StreetDropDown.Enabled = false;
+				HouseNumberDropDown.Enabled = false;
+				CinemaNameTextBox.Enabled = false;
+				ImportButton.Enabled = true;
 			}
 		}
 
 		private void button6_Click(object sender, EventArgs e) {
-			if(comboBox3.Text != "")
-				DB.deleteCinema(comboBox3.Text);
+			if(CinemaDropDown.Text != "")
+				DB.deleteCinema(CinemaDropDown.Text);
 		}
 	}
 }

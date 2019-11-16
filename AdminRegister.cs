@@ -8,9 +8,9 @@ namespace Beadando_Forms {
         }
 
 		private void button2_Click(object sender, EventArgs e) {
-			string username = textBox1.Text,
-						 password = textBox2.Text,
-						 cPassword = textBox3.Text;
+			string username = UsernameTextBox.Text,
+						 password = PasswordTextBox.Text,
+						 cPassword = PasswordConfirmTextBox.Text;
 
             if (string.IsNullOrWhiteSpace(username) || username.Length < 3)
             {

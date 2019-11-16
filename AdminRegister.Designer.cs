@@ -23,24 +23,24 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-            this.button2 = new System.Windows.Forms.Button();
+            this.RegisterButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PasswordTextBox = new System.Windows.Forms.TextBox();
+            this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.PasswordConfirmTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // button2
+            // RegisterButton
             // 
-            this.button2.Location = new System.Drawing.Point(12, 138);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(182, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Regisztráció!";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.RegisterButton.Location = new System.Drawing.Point(12, 138);
+            this.RegisterButton.Name = "RegisterButton";
+            this.RegisterButton.Size = new System.Drawing.Size(182, 23);
+            this.RegisterButton.TabIndex = 10;
+            this.RegisterButton.Text = "Regisztráció!";
+            this.RegisterButton.UseVisualStyleBackColor = true;
+            this.RegisterButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -60,20 +60,20 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Felhasználónév";
             // 
-            // textBox2
+            // PasswordTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 73);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(182, 20);
-            this.textBox2.TabIndex = 7;
-            this.textBox2.UseSystemPasswordChar = true;
+            this.PasswordTextBox.Location = new System.Drawing.Point(12, 73);
+            this.PasswordTextBox.Name = "PasswordTextBox";
+            this.PasswordTextBox.Size = new System.Drawing.Size(182, 20);
+            this.PasswordTextBox.TabIndex = 7;
+            this.PasswordTextBox.UseSystemPasswordChar = true;
             // 
-            // textBox1
+            // UsernameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(182, 20);
-            this.textBox1.TabIndex = 6;
+            this.UsernameTextBox.Location = new System.Drawing.Point(12, 25);
+            this.UsernameTextBox.Name = "UsernameTextBox";
+            this.UsernameTextBox.Size = new System.Drawing.Size(182, 20);
+            this.UsernameTextBox.TabIndex = 6;
             // 
             // label3
             // 
@@ -84,13 +84,13 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Jelszó megerősítése";
             // 
-            // textBox3
+            // PasswordConfirmTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 112);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(182, 20);
-            this.textBox3.TabIndex = 11;
-            this.textBox3.UseSystemPasswordChar = true;
+            this.PasswordConfirmTextBox.Location = new System.Drawing.Point(12, 112);
+            this.PasswordConfirmTextBox.Name = "PasswordConfirmTextBox";
+            this.PasswordConfirmTextBox.Size = new System.Drawing.Size(182, 20);
+            this.PasswordConfirmTextBox.TabIndex = 11;
+            this.PasswordConfirmTextBox.UseSystemPasswordChar = true;
             // 
             // AdminRegister
             // 
@@ -98,12 +98,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(207, 176);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.PasswordConfirmTextBox);
+            this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.PasswordTextBox);
+            this.Controls.Add(this.UsernameTextBox);
             this.MaximumSize = new System.Drawing.Size(223, 215);
             this.MinimumSize = new System.Drawing.Size(223, 215);
             this.Name = "AdminRegister";
@@ -115,12 +115,12 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button RegisterButton;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox PasswordTextBox;
+		private System.Windows.Forms.TextBox UsernameTextBox;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.TextBox PasswordConfirmTextBox;
 	}
 }

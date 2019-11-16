@@ -9,8 +9,8 @@ namespace Beadando_Forms {
 			LocationsHandler locations = new LocationsHandler();
 			MovieHandler movie = new MovieHandler();
 
-			comboBox2.DataSource = locations.cities;
-			comboBox4.DataSource = movie.movieTypes;
+			CityDropDown.DataSource = locations.cities;
+			GenreDropDown.DataSource = movie.movieTypes;
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
@@ -23,57 +23,57 @@ namespace Beadando_Forms {
 		}
 
 		private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
-			string selectedLocation = comboBox2.Text;
-			comboBox3.DataSource = DB.retrieveCinemaNamesByLocation(selectedLocation);
+			string selectedLocation = CityDropDown.Text;
+			CinemaDropDown.DataSource = DB.retrieveCinemaNamesByLocation(selectedLocation);
 		}
 
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) {
-			string cinemaName = comboBox2.Text;
-			comboBox1.DataSource = DB.retrieveMovieNamesByCinemaName(cinemaName);
-			comboBox1.Enabled = false;
-			if (comboBox3.Text != "")
-				comboBox1.Enabled = true;
-			if (comboBox3.Text != "") {
-				comboBox5.Enabled = false;
-				comboBox4.Enabled = false;
+			string cinemaName = CityDropDown.Text;
+			MovieDropDown.DataSource = DB.retrieveMovieNamesByCinemaName(cinemaName);
+			MovieDropDown.Enabled = false;
+			if (CinemaDropDown.Text != "")
+				MovieDropDown.Enabled = true;
+			if (CinemaDropDown.Text != "") {
+				MovieInfoDropDown.Enabled = false;
+				GenreDropDown.Enabled = false;
 			} else {
-				comboBox5.Enabled = true;
-				comboBox4.Enabled = true;
+				MovieInfoDropDown.Enabled = true;
+				GenreDropDown.Enabled = true;
 			}
 		}
 
 		private void comboBox4_SelectedIndexChanged(object sender, EventArgs e) {
-			string genre = comboBox4.SelectedItem.ToString();
-			comboBox5.DataSource = DB.retrieveMoviesByGenres(genre);
+			string genre = GenreDropDown.SelectedItem.ToString();
+			MovieInfoDropDown.DataSource = DB.retrieveMoviesByGenres(genre);
 		}
 
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
-			textBox1.ReadOnly = true;
+			MovieDetailsBox.ReadOnly = true;
 
-			if (comboBox1.Text != "" && comboBox3.Text != "") {
+			if (MovieDropDown.Text != "" && CinemaDropDown.Text != "") {
 				//Film címe, műfaja, 2019-11-06, 13:35
 
-				string[] searchValues = comboBox1.Text.Replace(", ", ",").Split(',');
+				string[] searchValues = MovieDropDown.Text.Replace(", ", ",").Split(',');
 
 				movie mov = new movie {
 					title = searchValues[0],
 					genres = searchValues[1].Split('/'),
 					ScreeningDate = searchValues[2],
 					ScreeningTime = searchValues[3],
-					selectedCinemaName = comboBox3.Text
+					selectedCinemaName = CinemaDropDown.Text
 				};
 
 				movie result = DB.searchForMovie(mov);
 
-				textBox1.Text = result.ToString();
+				MovieDetailsBox.Text = result.ToString();
 			}
 		}
 
 		private void comboBox5_SelectedIndexChanged(object sender, EventArgs e) {
 			//A Film címe, Debrecen, 2019-11-06, 13:35
-			if (comboBox4.Text != "" && comboBox5.Text != "") {
-				comboBox3.Enabled = false;
-				string[] searchValues = comboBox5.Text.Replace(", ", ",").Split(',');
+			if (GenreDropDown.Text != "" && MovieInfoDropDown.Text != "") {
+				CinemaDropDown.Enabled = false;
+				string[] searchValues = MovieInfoDropDown.Text.Replace(", ", ",").Split(',');
 
 				movie mov = new movie {
 					title = searchValues[0],
@@ -81,9 +81,9 @@ namespace Beadando_Forms {
 					ScreeningTime = searchValues[3]
 				};
 				movie result = DB.searchForMovie2(mov, searchValues[1]);
-				textBox1.Text = result.ToString();
+				MovieDetailsBox.Text = result.ToString();
 			} else
-				comboBox3.Enabled = true;
+				CinemaDropDown.Enabled = true;
 		}
 	}
 }
