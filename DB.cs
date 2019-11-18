@@ -33,7 +33,7 @@ namespace Beadando_Forms
 
                     "insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('Zoli', 'jelszo')",
                     "insert into 'Mozi' ('ID', 'Megye', 'IrszVarKer', 'Utca', 'H_szam', 'Nev', 'Tulaj_Nev', 'Letrehozasi_het') values ('0', 'Bács-Kiskun', '6000 Kecskemét', 'Szent János', '11/a', 'Zoli mozija', 'Zoli', '" + loc.weekOfTheYear() + "')",
-                    "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('Melegekkel Suttogó', 'akció', '120', '12', '8', '0', '2020-08-20', '13:30', 'Nagy Zsiga', 'Brad Pitt')",
+                    "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('Suttogó', 'akció', '120', '12', '8', '0', '2020-08-20', '13:30', 'Nagy Zsiga', 'Brad Pitt')",
                 };
 
                 foreach (string item in createTablesCommand)
