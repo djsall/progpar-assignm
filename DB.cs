@@ -401,12 +401,5 @@ namespace Beadando_Forms
                     MessageBox.Show("Számérték helyén más található a feldolgozandó fájlban. Kérem javítsa!");
             }
         }
-        /// <summary>
-        /// Deletes a given cinema
-        /// </summary>
-        public static void deleteCinema(string cinemaName)
-        {
-
-        }
     }
 }

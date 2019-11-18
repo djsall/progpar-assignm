@@ -130,10 +130,5 @@ namespace Beadando_Forms {
 				ImportButton.Enabled = true;
 			}
 		}
-
-		private void DeleteCinemaButton_Click(object sender, EventArgs e) {
-			if(CinemaDropDown.Text != "")
-				DB.deleteCinema(CinemaDropDown.Text);
-		}
 	}
 }
