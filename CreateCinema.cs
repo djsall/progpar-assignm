@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Beadando_Forms {
-	public partial class CreateCinema : Form {
 
-		string username = "";
-		
-        public CreateCinema() {
+	public partial class CreateCinema : Form {
+		private string username = "";
+
+		public CreateCinema() {
 			InitializeComponent();
 
 			LocationsHandler locations = new LocationsHandler();
@@ -29,11 +29,10 @@ namespace Beadando_Forms {
 		private void CreateCinemaButton_Click(object sender, EventArgs e) {
 			string county, city, street, cinemaName, maintainerName, houseNumber;
 
-            if (string.IsNullOrWhiteSpace(CinemaNameTextBox.Text))
-            {
-                MessageBox.Show("Kérem nevezze el a mozit!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+			if (string.IsNullOrWhiteSpace(CinemaNameTextBox.Text)) {
+				MessageBox.Show("Kérem nevezze el a mozit!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
 
 			county = CountyDropDown.SelectedValue.ToString();
 			city = CityDropDown.SelectedValue.ToString();
@@ -46,7 +45,6 @@ namespace Beadando_Forms {
 			DB.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
 
 			CinemaDropDown.DataSource = DB.retrieveCinemaNamesByOwner(username);
-
 		}
 
 		private void BackButton_Click(object sender, EventArgs e) {
@@ -55,7 +53,7 @@ namespace Beadando_Forms {
 			myForm.Show();
 		}
 
-		private void OnClose(object sender, EventArgs e){
+		private void OnClose(object sender, EventArgs e) {
 			Startup myForm = (Startup)Application.OpenForms["Startup"];
 			myForm.Show();
 		}
@@ -84,7 +82,7 @@ namespace Beadando_Forms {
 			string password = textBox5.Text;
 
 			bool login = DB.Login(uname, password);
-			if (login){
+			if (login) {
 				username = uname;
 
 				textBox5.Enabled = false;
@@ -101,9 +99,8 @@ namespace Beadando_Forms {
 				CinemaNameTextBox.Enabled = true;
 
 				CinemaDropDown.DataSource = DB.retrieveCinemaNamesByOwner(username);
-
 			} else
-				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!", "Hiba",MessageBoxButtons.OK,MessageBoxIcon.Error);
+				MessageBox.Show("Sikertelen Bejelentkezés!\nEllenőrizze a felhasználónevét és jelszavát,\n vagy regisztráljon!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		private void RegisterButton_Click(object sender, EventArgs e) {
@@ -120,7 +117,7 @@ namespace Beadando_Forms {
 				HouseNumberDropDown.Enabled = true;
 				CinemaNameTextBox.Enabled = true;
 				ImportButton.Enabled = false;
-			} else{
+			} else {
 				CreateCinemaButton.Enabled = false;
 				CountyDropDown.Enabled = false;
 				CityDropDown.Enabled = false;
