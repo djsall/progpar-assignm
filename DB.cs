@@ -184,18 +184,17 @@ namespace Beadando_Forms {
 
 			connection.Open();
 			using (SQLiteCommand command = connection.CreateCommand()) {
-				command.CommandText = "SELECT Letrehozasi_het FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
+				command.CommandText = "SELECT 'Mozi'.'Letrehozasi_het' FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
 				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
-
-				if (currWeek - int.Parse(r[0].ToString()) < 7)
+				if (currWeek > int.Parse(r.GetValue(0).ToString()))
 					isRightWeek = true;
 			}
 			using (SQLiteCommand command = connection.CreateCommand()) {
-				command.CommandText = "SELECT ID FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
+				command.CommandText = "SELECT 'Mozi'.'ID' FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
 				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
-				cinemaId = int.Parse(r[0].ToString());
+				cinemaId = int.Parse(r.GetValue(0).ToString());
 			}
 			connection.Close();
 

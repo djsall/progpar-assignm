@@ -60,21 +60,25 @@ namespace Beadando_Forms {
 
 		private void ImportButton_Click(object sender, EventArgs e) {
 			OpenFileDialog openFileDialog1 = new OpenFileDialog();
-			openFileDialog1.ShowDialog();
+			DialogResult dr = openFileDialog1.ShowDialog();
 			openFileDialog1.CheckFileExists = true;
 			openFileDialog1.CheckPathExists = true;
 
 			string path = openFileDialog1.FileName;
-			string[] fileContents = File.ReadAllLines(path);
+			if(dr == DialogResult.OK) {
+				string[] fileContents = File.ReadAllLines(path);
 
-			bool success = int.TryParse(fileContents[0], out int week);
-			if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				bool success = int.TryParse(fileContents[0], out int week);
+				if (!success) MessageBox.Show("A fájl nem a hét számával kezdődik!\nEllenőrizze a megadott fájlt!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-			string[] tempFileContents = { "" };
-			for (int i = 1; i < fileContents.Length; i++) {
-				tempFileContents[i - 1] = fileContents[i];
+				string[] tempFileContents = { "" };
+				for (int i = 1; i < fileContents.Length; i++) {
+					tempFileContents[i - 1] = fileContents[i];
+				}
+				DB.saveMovies(week, tempFileContents, CinemaDropDown.SelectedItem.ToString());
+			}else {
+				MessageBox.Show("Nem sikerült a fájlt kiválasztani!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			DB.saveMovies(week, tempFileContents, CinemaDropDown.SelectedItem.ToString());
 		}
 
 		private void LoginButton_Click(object sender, EventArgs e) {
