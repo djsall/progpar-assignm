@@ -29,8 +29,8 @@ namespace Beadando_Forms {
 		private void CreateCinemaButton_Click(object sender, EventArgs e) {
 			string county, city, street, cinemaName, maintainerName, houseNumber;
 
-			if (string.IsNullOrWhiteSpace(CinemaNameTextBox.Text)) {
-				MessageBox.Show("Kérem nevezze el a mozit!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			if (string.IsNullOrWhiteSpace(CinemaNameTextBox.Text) | string.IsNullOrWhiteSpace(StreetDropDown.Text) | string.IsNullOrWhiteSpace(HouseNumberDropDown.Text)) {
+				MessageBox.Show("Kérem ne hagyjon üresen mezőket!", "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 			}
 
@@ -40,7 +40,7 @@ namespace Beadando_Forms {
 			houseNumber = HouseNumberDropDown.Text;
 			cinemaName = CinemaNameTextBox.Text;
 			maintainerName = username;
-			DateTime creationTime = DateTime.Now;
+			DateTime creationTime = DateTime.Now; 
 
 			DB.createCinema(county, city, street, cinemaName, maintainerName, houseNumber, creationTime);
 
