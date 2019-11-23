@@ -17,9 +17,10 @@ namespace Beadando_Forms {
 		/// </summary>
 		static DB() {
 			connection = new SQLiteConnection("Data Source=" + DatabasePath + "; version=3;");
+			connection.Open();
 			if (!File.Exists(DatabasePath)) {
 				SQLiteConnection.CreateFile(DatabasePath);
-				connection.Open();
+				
 				string[] createTablesCommand = {
 										"create table 'Varosok' ( 'Megye' VARCHAR, 'IrszVarKer' VARCHAR )",
 										"create table 'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'Megye' VARCHAR, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR, 'Nev' VARCHAR, 'Tulaj_Nev' VARCHAR, 'Letrehozasi_het' INT )",
@@ -36,7 +37,7 @@ namespace Beadando_Forms {
 					SQLiteCommand prepDb = new SQLiteCommand(item, connection);
 					prepDb.ExecuteNonQuery();
 				}
-				connection.Close();
+				
 			}
 		}
 
@@ -46,7 +47,7 @@ namespace Beadando_Forms {
 		public static void createCinema(string county, string city, string street, string cinemaName, string maintainerName, string houseNumber, DateTime creationTime) {
 			//mozit menti el, ha nem létezik még
 			int count = 0;
-			connection.Open();
+			
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + cinemaName + "'";
 				command.CommandType = CommandType.Text;
@@ -63,7 +64,7 @@ namespace Beadando_Forms {
 			} else
 				MessageBox.Show("Már létezik " + cinemaName + " nevű mozi az adatbázisban!");
 
-			connection.Close();
+			
 		}
 
 		/// <summary>
@@ -71,7 +72,7 @@ namespace Beadando_Forms {
 		/// </summary>
 		/// <returns>true if present, false if not present</returns>
 		public static bool selectUser(string username) {
-			connection.Open();
+			
 			int count = 0;
 
 			using (SQLiteCommand command = connection.CreateCommand()) {
@@ -82,10 +83,10 @@ namespace Beadando_Forms {
 			};
 
 			if (count == 0) {
-				connection.Close();
+				
 				return true;
 			} else {
-				connection.Close();
+				
 				return false;
 			}
 		}
@@ -96,13 +97,13 @@ namespace Beadando_Forms {
 		/// <returns>True if success, false if not.</returns>
 		public static bool registerAdmin(string username, string password) {
 			if (selectUser(username)) {
-				connection.Open();
+				
 
 				string command = "insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('" + username + "', '" + password + "')";
 				SQLiteCommand insert = new SQLiteCommand(command, connection);
 				insert.ExecuteNonQuery();
 
-				connection.Close();
+				
 
 				return true;
 			} else
@@ -114,7 +115,7 @@ namespace Beadando_Forms {
 		/// Returns true if the username and password combination is found in the database
 		/// </summary>
 		public static bool Login(string username, string password) {
-			connection.Open();
+			
 			int count = 0;
 
 			using (SQLiteCommand command = connection.CreateCommand()) {
@@ -125,10 +126,10 @@ namespace Beadando_Forms {
 			};
 
 			if (count == 1) {
-				connection.Close();
+				
 				return true;
 			} else {
-				connection.Close();
+				
 				return false;
 			}
 		}
@@ -140,7 +141,7 @@ namespace Beadando_Forms {
 			List<string> result = new List<string>();
 			result.Insert(0, "");
 
-			connection.Open();
+			
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'Tulaj_Nev'='" + ownerName + "'";
 				command.CommandType = CommandType.Text;
@@ -148,7 +149,7 @@ namespace Beadando_Forms {
 				while (r.Read())
 					result.Add(Convert.ToString(r[0]));
 			}
-			connection.Close();
+			
 			return result;
 		}
 
@@ -159,7 +160,7 @@ namespace Beadando_Forms {
 			List<string> result = new List<string>();
 			result.Insert(0, "");
 
-			connection.Open();
+			
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT NEV FROM 'Mozi' WHERE 'Mozi'.'IrszVarKer'='" + location + "'";
 				command.CommandType = CommandType.Text;
@@ -167,7 +168,7 @@ namespace Beadando_Forms {
 				while (r.Read())
 					result.Add(Convert.ToString(r[0]));
 			}
-			connection.Close();
+			
 			return result;
 		}
 
@@ -182,7 +183,7 @@ namespace Beadando_Forms {
 
 			bool isRightWeek = false;
 
-			connection.Open();
+			
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT 'Mozi'.'Letrehozasi_het' FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
 				command.CommandType = CommandType.Text;
@@ -200,11 +201,11 @@ namespace Beadando_Forms {
 					cinemaId = int.Parse(r.GetValue(0).ToString());
 				else MessageBox.Show("anyukad2");
 			}
-			connection.Close();
+			
 
 			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 			if (isRightWeek) {
-				connection.Open();
+				
 				string genres = mt.genres[0];
 				for (int i = 1; i < mt.genres.Length; i++) {
 					genres += "/" + mt.genres[i];
@@ -213,7 +214,7 @@ namespace Beadando_Forms {
 				SQLiteCommand command = new SQLiteCommand(commandString, connection);
 				command.ExecuteNonQuery();
 
-				connection.Close();
+				
 				MessageBox.Show("Sikeres feltöltés!");
 			} else
 				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
@@ -225,7 +226,7 @@ namespace Beadando_Forms {
 		public static List<string> retrieveMovieNamesByCinemaName(string cinemaName) {
 			List<string> result = new List<string>();
 
-			connection.Open();
+			
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT F_Cim, Mufaj, Vetitesi_Nap, Vetitesi_Ido FROM 'Filmek' INNER JOIN 'Mozi' ON 'Filmek'.'Mozi_ID'='Mozi'.'ID' WHERE 'Mozi'.'Nev'='" + cinemaName + "'";
 				command.CommandType = CommandType.Text;
@@ -233,7 +234,7 @@ namespace Beadando_Forms {
 				while (r.Read())
 					result.Add(r[0].ToString() + ", " + r[1].ToString() + ", " + r[2].ToString() + ", " + r[3].ToString());
 			}
-			connection.Close();
+			
 
 			result.Insert(0, "");
 
@@ -246,7 +247,7 @@ namespace Beadando_Forms {
 		public static List<string> retrieveMoviesByGenres(string genre) {
 			List<string> result = new List<string>();
 
-			connection.Open();
+			
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT F_Cim, IrszVarKer, Vetitesi_Nap, Vetitesi_Ido FROM 'Filmek' INNER JOIN 'Mozi' ON 'Filmek'.'Mozi_ID'='Mozi'.'ID' WHERE 'Filmek'.'Mufaj'='" + genre + "'";
 				command.CommandType = CommandType.Text;
@@ -254,7 +255,7 @@ namespace Beadando_Forms {
 				while (r.Read())
 					result.Add(r[0].ToString() + ", " + r[1].ToString() + ", " + r[2].ToString() + ", " + r[3].ToString());
 			}
-			connection.Close();
+			
 
 			result.Insert(0, "");
 			result.Sort();
@@ -266,7 +267,7 @@ namespace Beadando_Forms {
 		/// </summary>
 		/// <returns>Movie struct</returns>
 		public static movie searchForMovie(movie mov) {
-			connection.Open();
+			
 
 			movie result = new movie {
 				title = mov.title,
@@ -288,7 +289,7 @@ namespace Beadando_Forms {
 				} else
 					result = default;
 			}
-			connection.Close();
+			
 			return result;
 		}
 
@@ -297,7 +298,7 @@ namespace Beadando_Forms {
 		/// </summary>
 		/// <returns>Movie struct</returns>
 		public static movie searchForMovie2(movie mov, string location) {
-			connection.Open();
+			
 			movie result = new movie {
 				ScreeningDate = mov.ScreeningDate,
 				ScreeningTime = mov.ScreeningTime,
@@ -318,7 +319,7 @@ namespace Beadando_Forms {
 				} else
 					result = default;
 			}
-			connection.Close();
+			
 			return result;
 		}
 

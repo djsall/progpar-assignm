@@ -1,2 +1,2 @@
-42
-műfajok	sztárok	játékidő	Rendező	cím	vetítés dátuma	vetítés időpontja	korhatár
+47
+Romantikus/thriller	Angelina Jolie	120	Christopher Nolan	Hold-Háború	2019-11-20	13:30	12
