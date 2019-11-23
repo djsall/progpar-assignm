@@ -187,14 +187,18 @@ namespace Beadando_Forms {
 				command.CommandText = "SELECT 'Mozi'.'Letrehozasi_het' FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
 				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
-				if (currWeek > int.Parse(r.GetValue(0).ToString()))
-					isRightWeek = true;
+				if (r.Read()) {
+					if (currWeek >= int.Parse(r.GetValue(0).ToString()))
+						isRightWeek = true;
+				} else MessageBox.Show("Anyukad");
 			}
 			using (SQLiteCommand command = connection.CreateCommand()) {
 				command.CommandText = "SELECT 'Mozi'.'ID' FROM 'Mozi' WHERE 'Mozi'.'Nev'='" + mt.selectedCinemaName + "'";
 				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
-				cinemaId = int.Parse(r.GetValue(0).ToString());
+				if (r.Read())
+					cinemaId = int.Parse(r.GetValue(0).ToString());
+				else MessageBox.Show("anyukad2");
 			}
 			connection.Close();
 
@@ -205,7 +209,7 @@ namespace Beadando_Forms {
 				for (int i = 1; i < mt.genres.Length; i++) {
 					genres += "/" + mt.genres[i];
 				}
-				string commandString = "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('" + mt.title + "', '" + genres + "', '" + mt.playtime + "', '" + mt.ageRestriction + "', '" + currWeek + "', '" + cinemaId + "', '" + mt.ScreeningDate + "', '" + mt.ScreeningTime + "', '" + mt.producer + "', '" + mt.starring + "')";
+				string commandString = "insert into 'Mozi'.'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('" + mt.title + "', '" + genres + "', '" + mt.playtime + "', '" + mt.ageRestriction + "', '" + currWeek + "', '" + cinemaId + "', '" + mt.ScreeningDate + "', '" + mt.ScreeningTime + "', '" + mt.producer + "', '" + mt.starring + "')";
 				SQLiteCommand command = new SQLiteCommand(commandString, connection);
 				command.ExecuteNonQuery();
 
