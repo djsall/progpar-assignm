@@ -17,10 +17,10 @@ namespace Beadando_Forms {
 		/// </summary>
 		static DB() {
 			connection = new SQLiteConnection("Data Source=" + DatabasePath + "; version=3;");
-			connection.Open();
 			if (!File.Exists(DatabasePath)) {
 				SQLiteConnection.CreateFile(DatabasePath);
-				
+				connection.Open();
+
 				string[] createTablesCommand = {
 										"create table 'Varosok' ( 'Megye' VARCHAR, 'IrszVarKer' VARCHAR )",
 										"create table 'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'Megye' VARCHAR, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR, 'Nev' VARCHAR, 'Tulaj_Nev' VARCHAR, 'Letrehozasi_het' INT )",
@@ -37,8 +37,9 @@ namespace Beadando_Forms {
 					SQLiteCommand prepDb = new SQLiteCommand(item, connection);
 					prepDb.ExecuteNonQuery();
 				}
-				
-			}
+
+			} else
+				connection.Open();
 		}
 
 		/// <summary>
