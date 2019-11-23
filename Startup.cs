@@ -4,7 +4,7 @@ using System.Windows.Forms;
 namespace Beadando_Forms {
 	public partial class Startup : Form {
 		
-        public Startup() {
+      public Startup() {
 			InitializeComponent();
 
 			LocationsHandler locations = new LocationsHandler();

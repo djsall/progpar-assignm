@@ -209,11 +209,12 @@ namespace Beadando_Forms {
 				for (int i = 1; i < mt.genres.Length; i++) {
 					genres += "/" + mt.genres[i];
 				}
-				string commandString = "insert into 'Mozi'.'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('" + mt.title + "', '" + genres + "', '" + mt.playtime + "', '" + mt.ageRestriction + "', '" + currWeek + "', '" + cinemaId + "', '" + mt.ScreeningDate + "', '" + mt.ScreeningTime + "', '" + mt.producer + "', '" + mt.starring + "')";
+				string commandString = "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('" + mt.title + "', '" + genres + "', '" + mt.playtime + "', '" + mt.ageRestriction + "', '" + currWeek + "', '" + cinemaId + "', '" + mt.ScreeningDate + "', '" + mt.ScreeningTime + "', '" + mt.producer + "', '" + mt.starring + "')";
 				SQLiteCommand command = new SQLiteCommand(commandString, connection);
 				command.ExecuteNonQuery();
 
 				connection.Close();
+				MessageBox.Show("Sikeres feltöltés!");
 			} else
 				MessageBox.Show("Nem a megfelelő hétre töltötte fel az adatokat.");
 		}
