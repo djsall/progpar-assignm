@@ -22,10 +22,8 @@ namespace Beadando_Forms {
 				connection.Open();
 
 				string[] createTablesCommand = {
-										"create table 'Varosok' ( 'Megye' VARCHAR, 'IrszVarKer' VARCHAR )",
 										"create table 'Mozi' ( 'ID' INTEGER PRIMARY KEY, 'Megye' VARCHAR, 'IrszVarKer' VARCHAR, 'Utca' VARCHAR, 'H_szam' VARCHAR, 'Nev' VARCHAR, 'Tulaj_Nev' VARCHAR, 'Letrehozasi_het' INT )",
 										"create table 'Tulaj' ( 'Felhasznalo' VARCHAR, 'Jelszo' VARCHAR )",
-										"create table 'Vetitesek' ( 'Vetitesi_datum' VARCHAR, 'Vetitesi_ido' VARCHAR, 'F_cim' VARCHAR )",
 										"create table 'Filmek' ( 'F_Cim' VARCHAR, 'Mufaj' VARCHAR, 'Hossz' INTEGER, 'Korhatar' INTEGER, 'Vetitesi_het' INTEGER, 'Mozi_ID' INTEGER, 'Vetitesi_Nap' VARCHAR, 'Vetitesi_Ido' VARCHAR, 'Rendezo' VARCHAR, 'Foszereplo' VARCHAR)",
 
 										"insert into 'Tulaj' ('Felhasznalo', 'Jelszo') values ('Zoli', 'jelszo')",
