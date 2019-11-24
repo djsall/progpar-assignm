@@ -274,7 +274,13 @@ namespace Beadando_Forms {
 				selectedCinemaName = mov.selectedCinemaName
 			};
 			using (SQLiteCommand command = connection.CreateCommand()) {
-				command.CommandText = "SELECT Hossz, Korhatar, Foszereplo, Rendezo FROM 'Filmek' INNER JOIN 'Mozi' ON 'Mozi'.'ID'='Filmek'.'Mozi_ID' WHERE 'Filmek'.'F_Cim'='" + mov.title + "' AND 'Filmek'.'Vetitesi_het'='" + mov.ScreeningDate + "' AND 'Filmek'.'Vetitesi_Nap'='" + mov.ScreeningTime + "' AND 'Mozi'.'Nev'='" + mov.selectedCinemaName + "'";
+				command.CommandText = "SELECT Hossz, Korhatar, Foszereplo, Rendezo FROM 'Filmek' "+
+														  "INNER JOIN 'Mozi' ON 'Mozi'.'ID' = 'Filmek'.'Mozi_ID'"+
+															"WHERE 'Filmek'.'F_Cim' = '" + mov.title + "'"+
+															"AND 'Mozi'.'Nev' = '" + mov.selectedCinemaName + "'"+
+															"AND 'Filmek'.'Vetitesi_nap' = '" + mov.ScreeningDate + "'"+
+															"AND 'Filmek'.'Vetitesi_ido' = '" + mov.ScreeningTime + "'";
+
 				command.CommandType = CommandType.Text;
 				SQLiteDataReader r = command.ExecuteReader();
 
