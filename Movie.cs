@@ -3,9 +3,9 @@
 namespace Beadando_Forms {
 
 	internal struct movie {
-		public string[] genres;
 
-		public string starring,
+		public string genres,
+									starring,
 									producer,
 									title,
 									ScreeningDate,
@@ -17,15 +17,7 @@ namespace Beadando_Forms {
 							 week;
 
 		public override string ToString() {
-			string output = "";
-			output += genres[0];
-
-			for (int i = 0; i < genres.Length; i++)
-				if (0 < i && i < genres.Length) output += "/" + genres[i];
-
-			output += ", Főszereplő(k): " + starring + ", Rendező: " + producer + ", Cím: " + title + ", Vetítés: " + ScreeningDate + " " + ScreeningTime + " - A " + selectedCinemaName + " moziban, Játékidő:" + playtime + " prec, Korhatár: " + ageRestriction + " éves kor";
-
-			return output;
+			return "Műfaj: " + genres + ", Főszereplő(k): " + starring + ", Rendező: " + producer + ", Cím: " + title + ", Vetítés: " + ScreeningDate + " " + ScreeningTime + " - A " + selectedCinemaName + " moziban, Játékidő:" + playtime + " prec, Korhatár: " + ageRestriction + " éves kor";
 		}
 	};
 

@@ -27,14 +27,14 @@ namespace Beadando_Forms {
 
 
 		private void CinemaDropDown_SelectedIndexChanged(object sender, EventArgs e) {
-			string cinemaName = CityDropDown.Text;
-			MovieDropDown.DataSource = DB.retrieveMovieNamesByCinemaName(cinemaName);
 			MovieDropDown.Enabled = false;
-			if (CinemaDropDown.Text != "")
+			if (CinemaDropDown.Text != ""){ 
+
 				MovieDropDown.Enabled = true;
-			if (CinemaDropDown.Text != "") {
+				MovieDropDown.DataSource = DB.retrieveMovieNamesByCinemaName(CinemaDropDown.Text);
 				MovieInfoDropDown.Enabled = false;
 				GenreDropDown.Enabled = false;
+
 			} else {
 				MovieInfoDropDown.Enabled = true;
 				GenreDropDown.Enabled = true;
@@ -56,7 +56,7 @@ namespace Beadando_Forms {
 
 				movie mov = new movie {
 					title = searchValues[0],
-					genres = searchValues[1].Split('/'),
+					genres = searchValues[1],
 					ScreeningDate = searchValues[2],
 					ScreeningTime = searchValues[3],
 					selectedCinemaName = CinemaDropDown.Text

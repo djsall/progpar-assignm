@@ -207,11 +207,7 @@ namespace Beadando_Forms {
 			//ha a megfelelő hétbe jönnek az adatok, akkor mentsük el az adatbázisba az adatokat
 			if (isRightWeek) {
 				
-				string genres = mt.genres[0];
-				for (int i = 1; i < mt.genres.Length; i++) {
-					genres += "/" + mt.genres[i];
-				}
-				string commandString = "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('" + mt.title + "', '" + genres + "', '" + mt.playtime + "', '" + mt.ageRestriction + "', '" + currWeek + "', '" + cinemaId + "', '" + mt.ScreeningDate + "', '" + mt.ScreeningTime + "', '" + mt.producer + "', '" + mt.starring + "')";
+				string commandString = "insert into 'Filmek' ('F_Cim', 'Mufaj', 'Hossz', 'Korhatar', 'Vetitesi_het', 'Mozi_ID', 'Vetitesi_Nap', 'Vetitesi_Ido', 'Rendezo', 'Foszereplo') values ('" + mt.title + "', '" + mt.genres + "', '" + mt.playtime + "', '" + mt.ageRestriction + "', '" + currWeek + "', '" + cinemaId + "', '" + mt.ScreeningDate + "', '" + mt.ScreeningTime + "', '" + mt.producer + "', '" + mt.starring + "')";
 				SQLiteCommand command = new SQLiteCommand(commandString, connection);
 				command.ExecuteNonQuery();
 
@@ -311,7 +307,7 @@ namespace Beadando_Forms {
 				SQLiteDataReader r = command.ExecuteReader();
 
 				if (r.Read()) {
-					result.genres = r[0].ToString().Split('/');
+					result.genres = r[0].ToString();
 					result.ageRestriction = int.Parse(r[1].ToString());
 					result.playtime = int.Parse(r[2].ToString());
 					result.selectedCinemaName = r[3].ToString();
@@ -332,10 +328,9 @@ namespace Beadando_Forms {
 
 			foreach (var item in movies) {
 				string[] line = item.Split('\t');
-				string[] genreProc = line[0].Split('/');
 
 				movie mT = new movie {
-					genres = new string[genreProc.Length],
+					genres = line[0],
 					starring = line[1],
 					producer = line[3],
 					title = line[4],
@@ -344,10 +339,6 @@ namespace Beadando_Forms {
 					week = week,
 					selectedCinemaName = selectedCinemaName
 				};
-
-				for (int i = 0; i < genreProc.Length; i++)
-					if (mov.movieTypes.Contains(genreProc[i].ToLower()))
-						mT.genres[i] = genreProc[i];
 
 				bool playtimeCheck = int.TryParse(line[2], out mT.playtime),
 						ageRestrictionCheck = int.TryParse(line[7], out mT.ageRestriction);
